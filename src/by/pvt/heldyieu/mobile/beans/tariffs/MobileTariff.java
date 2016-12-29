@@ -3,10 +3,11 @@
  */
 package by.pvt.heldyieu.mobile.beans.tariffs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import by.pvt.heldyieu.mobile.beans.interfaces.Subscribable;
 import by.pvt.heldyieu.mobile.beans.interfaces.Unsubscribable;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
@@ -22,10 +23,6 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	private String tariffName;			// название тарифного плана	
 	private Map<String, String> clients = new HashMap<String, String>();
 	private static Map<Double, String> abonementPriceSort = new TreeMap<Double, String>();  //остортированный список тарифов
-	
-	private void addTariffInstance(MobileTariff mobileTariff){
-		tariffs.put(count++, mobileTariff);
-	}
 	
 	/**
 	 * Creates new entity of the class <b>{@code MobileTariff}</b>
@@ -85,11 +82,29 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 		sortOnAbonementPrice();
 		return abonementPriceSort;
 	}
+	
+	public static List<MobileTariff> getDesireTariff(Map<Integer, MobileTariff> tariffs, double price){
+		return findTariff(tariffs, price);
+	}
+	
+	private void addTariffInstance(MobileTariff mobileTariff){
+		tariffs.put(count++, mobileTariff);
+	}
 
 	private static void sortOnAbonementPrice(){
 		for (int i = 0; i < tariffs.size(); i++) {
 			abonementPriceSort.put(tariffs.get(i).getCost(), tariffs.get(i).getTariffName());
 		}
+	}
+	
+	private static List<MobileTariff> findTariff(Map<Integer, MobileTariff> tariffs, double price){
+		List<MobileTariff> target = new ArrayList<MobileTariff>();
+		for (int i = 0; i < tariffs.size(); i++) {
+			if (tariffs.get(i).getCost()<=price) {
+				target.add(tariffs.get(i));
+			}
+		}
+		return target;
 	}
 	
 	abstract public double getCost();

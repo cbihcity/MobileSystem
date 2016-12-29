@@ -46,5 +46,6 @@ public final class Initialization {
 		}
 		System.out.println(sum);
 		System.out.println(MobileTariff.getAbonementPriceSort().toString());
+		MobileTariff.getDesireTariff(tariffs, 18).forEach(System.out::println);;
 	}
 }

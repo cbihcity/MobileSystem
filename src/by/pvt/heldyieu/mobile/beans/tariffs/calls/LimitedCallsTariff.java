@@ -85,9 +85,10 @@ public class LimitedCallsTariff extends CallsTariff {
 	 */
 	@Override
 	public String toString() {
-		return "LimitedCallsTariff [getClientsNumbers()=" + getClientsNumbers()
-				+ ", getCost()=" + getCost() + ", getAbonementPrice()="
-				+ getAbonementPrice() + "]";
+		return "Название тарифного плана - "+getTariffName()+
+				"; Суммарная стоимость - "+getCost()+
+				"; Стоимость звонков - "+getcallsPrice()+
+				"; Стоимость абонентской платы - "+getAbonementPrice();
 	}
 
 	public void subscribe(String passport, String surname, String firstname){

@@ -71,9 +71,10 @@ public class UnlimitedInternetTariff extends InternetTariff {
 	 */
 	@Override
 	public String toString() {
-		return "UnlimitedInternetTariff [internetPrice=" + getInternetPrice()
-				+ ", abonementPrice=" + getAbonementPrice() + ", "
-				+ (getTariffName() != null ? "tariffName=" + getTariffName() : "") + "]";
+		return "Название тарифного плана - "+getTariffName()+
+				"; Суммарная стоимость - "+getCost()+
+				"; Стоимость звонков - "+getInternetPrice()+
+				"; Стоимость абонентской платы - "+getAbonementPrice();
 	}
 
 	public void subscribe(String passport, String surname, String firstname){

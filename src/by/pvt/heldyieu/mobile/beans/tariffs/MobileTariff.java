@@ -39,12 +39,9 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	 * Creates new entity of the class <b>{@code MobileTariff}</b> and
 	 * initialize it
 	 * 
-	 * @param tariffname
-	 *            - name of tariff
-	 * @param abonementPrice
-	 *            - the price of tariff per month
-	 * @throws IllegalValueException
-	 *             - see in super constructor
+	 * @param tariffname	- name of tariff
+	 * @param abonementPrice	- the price of tariff per month
+	 * @throws IllegalValueException	- see in super constructor
 	 */
 	public MobileTariff(String tariffname, double abonementPrice)
 			throws InvalidValueException {
@@ -180,6 +177,17 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 			MobileTariff [] tariffs, double price) {
 		return findTariff(tariffs, price);
 	}
+	
+	private static List<MobileTariff> findTariff(
+			MobileTariff [] tariffs, final double price) {
+		final List<MobileTariff> target = new ArrayList<MobileTariff>();
+		for (int i = 0; i < tariffs.length; i++) {
+			if (tariffs[i].getCost() <= price) {
+				target.add(tariffs[i]);
+			}
+		}
+		return target;
+	}
 
 	private void addTariffInstance(final MobileTariff mobileTariff) {
 		TARIFFS[count++] = mobileTariff;
@@ -190,17 +198,6 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 			abonementPriceSort.put(TARIFFS[i].getCost(), TARIFFS[i]
 					.getTariffName());
 		}
-	}
-
-	private static List<MobileTariff> findTariff(
-			MobileTariff [] tariffs, final double price) {
-		final List<MobileTariff> target = new ArrayList<MobileTariff>();
-		for (int i = 0; i < tariffs.length; i++) {
-			if (tariffs[i].getCost() <= price) {
-				target.add(tariffs[i]);
-			}
-		}
-		return target;
 	}
 
 	abstract public double getCost();

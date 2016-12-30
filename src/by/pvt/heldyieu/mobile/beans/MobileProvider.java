@@ -4,13 +4,12 @@ import java.util.Arrays;
 
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 
-public class MobileProvider {
+public abstract class MobileProvider {
 	private String companyName;
 	private String address;
 	private String phoneNumber;
 	private String webSite;
 	private String eMail;
-	private Manager[] listOfManagers;
 	private MobileTariff[] listOfMobileTariffs;
 
 	/**
@@ -42,7 +41,6 @@ public class MobileProvider {
 		this.phoneNumber = phoneNumber;
 		this.webSite = webSite;
 		this.eMail = eMail;
-		this.listOfManagers = listOfManagers;
 		this.listOfMobileTariffs = listOfMobileTariffs;
 	}
 
@@ -56,7 +54,6 @@ public class MobileProvider {
 		return "MobileProvider [companyName=" + companyName + ", address="
 				+ address + ", phoneNumber=" + phoneNumber + ", webSite="
 				+ webSite + ", eMail=" + eMail + ", listOfManagers="
-				+ Arrays.toString(listOfManagers) + ", listOfMobileTariffs="
 				+ Arrays.toString(listOfMobileTariffs) + "]";
 	}
 
@@ -73,7 +70,6 @@ public class MobileProvider {
 		result = prime * result
 				+ ((companyName == null) ? 0 : companyName.hashCode());
 		result = prime * result + ((eMail == null) ? 0 : eMail.hashCode());
-		result = prime * result + Arrays.hashCode(listOfManagers);
 		result = prime * result + Arrays.hashCode(listOfMobileTariffs);
 		result = prime * result
 				+ ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
@@ -117,9 +113,6 @@ public class MobileProvider {
 				return false;
 			}
 		} else if (!eMail.equals(other.eMail)) {
-			return false;
-		}
-		if (!Arrays.equals(listOfManagers, other.listOfManagers)) {
 			return false;
 		}
 		if (!Arrays.equals(listOfMobileTariffs, other.listOfMobileTariffs)) {
@@ -215,36 +208,6 @@ public class MobileProvider {
 	 */
 	public void seteMail(String eMail) {
 		this.eMail = eMail;
-	}
-
-	/**
-	 * @return the listOfManagers
-	 */
-	public Manager[] getListOfManagers() {
-		return listOfManagers;
-	}
-
-	/**
-	 * @param listOfManagers
-	 *            the listOfManagers to set
-	 */
-	public void setListOfManagers(Manager[] listOfManagers) {
-		this.listOfManagers = listOfManagers;
-	}
-
-	/**
-	 * @return the listOfMobileTariffs
-	 */
-	public MobileTariff[] getListOfMobileTariffs() {
-		return listOfMobileTariffs;
-	}
-
-	/**
-	 * @param listOfMobileTariffs
-	 *            the listOfMobileTariffs to set
-	 */
-	public void setListOfMobileTariffs(MobileTariff[] listOfMobileTariffs) {
-		this.listOfMobileTariffs = MobileTariff.getTariffs();
 	}
 
 }

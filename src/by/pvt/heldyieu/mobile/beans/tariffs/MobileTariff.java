@@ -146,6 +146,20 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	public String getTariffName() {
 		return tariffName;
 	}
+	
+	/**
+	 * @param abonementPrice the abonementPrice to set
+	 */
+	public void setAbonementPrice(double abonementPrice) {
+		this.abonementPrice = abonementPrice;
+	}
+
+	/**
+	 * @param tariffName the tariffName to set
+	 */
+	public void setTariffName(String tariffName) {
+		this.tariffName = tariffName;
+	}
 
 	/**
 	 * @return the clients

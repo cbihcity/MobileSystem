@@ -3,8 +3,6 @@
  */
 package by.pvt.heldyieu.mobile.tools;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
@@ -51,5 +49,6 @@ public final class Initialization {
 		System.out.println(sum);
 		System.out.println(MobileTariff.getAbonementPriceSort().toString());
 		MobileTariff.getDesireTariff(tariffs, 25).forEach(System.out::println);;
+		
 	}
 }

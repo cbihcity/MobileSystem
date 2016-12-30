@@ -18,7 +18,7 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  */
 public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	private static int count = 0;
-	private static MobileTariff [] TARIFFS = new MobileTariff [4]; // список
+	private static final MobileTariff [] TARIFFS = new MobileTariff [4]; // список
 																									// доступных
 																									// тарифов
 	private double abonementPrice; // абонентская плата
@@ -130,7 +130,7 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	 * @return the tariffs
 	 */
 	public static MobileTariff [] getTariffs() {
-		return TARIFFS;
+		return TARIFFS.clone();
 	}
 
 	/**

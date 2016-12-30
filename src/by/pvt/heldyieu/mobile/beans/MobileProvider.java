@@ -32,16 +32,14 @@ public abstract class MobileProvider {
 												String address,
 												String phoneNumber, 
 												String webSite, 
-												String eMail,
-												Manager[] listOfManagers, 
-												MobileTariff[] listOfMobileTariffs) {
+												String eMail) {
 		super();
 		this.companyName = companyName;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.webSite = webSite;
 		this.eMail = eMail;
-		this.listOfMobileTariffs = listOfMobileTariffs;
+		listOfMobileTariffs = MobileTariff.getTariffs();
 	}
 
 	/*

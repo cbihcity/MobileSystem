@@ -13,43 +13,49 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class UnlimitedInternetTariff extends InternetTariff {
-	private Map<String, String> clients = new HashMap<String, String>();  // список клиентов данного тарифного плана
-	
+	private Map<String, String> clients = new HashMap<String, String>(); // список
+																			// клиентов
+																			// данного
+																			// тарифного
+																			// плана
+
 	public UnlimitedInternetTariff() {
 		super();
 	}
 
 	public UnlimitedInternetTariff(String tarrifName, double abonementPrice,
 			double internetPrice) throws InvalidValueException {
-		super(tarrifName,abonementPrice,internetPrice);
-	}
-	
-	public Map<String, String> getClients() {
-		return clients;
+		super(tarrifName, abonementPrice, internetPrice);
 	}
 
-	/* (non-Javadoc)
+	public void getClients() {
+		clients.forEach((passport, surname) -> System.out.println(passport + " " + surname));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		//TODO
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		//TODO
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
+		if (!super.equals(obj)) {
 			return false;
 		}
 		if (!(obj instanceof UnlimitedInternetTariff)) {
@@ -66,30 +72,29 @@ public class UnlimitedInternetTariff extends InternetTariff {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Название тарифного плана - "+getTariffName()+
-				"; Суммарная стоимость - "+getCost()+
-				"; Стоимость звонков - "+getInternetPrice()+
-				"; Стоимость абонентской платы - "+getAbonementPrice();
+		return super.toString() + "; Суммарная стоимость - " + getCost();
 	}
 
-	public void subscribe(String passport, String surname, String firstname){
-		clients.put(passport, surname+" "+firstname);
+	public void subscribe(String passport, String surname, String firstname) {
+		clients.put(passport, surname + " " + firstname);
 	}
-	
-	public void unsubscribe(String passport){
+
+	public void unsubscribe(String passport) {
 		clients.remove(passport);
 	}
-	
-	public int getClientsNumbers(){
+
+	public int getClientsNumbers() {
 		return clients.size();
 	}
-	
-	public double getCost(){
-		return getAbonementPrice()+getInternetPrice();
-	}	
+
+	public double getCost() {
+		return getAbonementPrice() + getInternetPrice();
+	}
 }

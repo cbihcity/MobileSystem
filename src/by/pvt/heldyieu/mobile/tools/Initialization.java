@@ -25,10 +25,10 @@ public final class Initialization {
 	public static void main(String[] args) {
 		Map<Integer, MobileTariff> tariffs = new HashMap<Integer, MobileTariff>();
 		try {
-			new LimitedInternetTariff("Лимитируемые интернет", 10.5, 4.5);
-			new UnlimitedInternetTariff("Нелимитируемый интернет", 11.5, 5.6);
-			new LimitedCallsTariff("Лимитируемые звонки", 9.5, 2.5);
-			new UnlimitedCallsTariff("Нелимитируемые звонки", 13.5, 5.6);
+			new LimitedInternetTariff("Лимитируемые интернет", 30.5, 4.5);
+			new UnlimitedInternetTariff("Нелимитируемый интернет", 41.5, 5.6);
+			new LimitedCallsTariff("Лимитируемые звонки", 19.5, 2.5);
+			new UnlimitedCallsTariff("Нелимитируемые звонки", 16.5, 5.6);
 		} catch (InvalidValueException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
@@ -42,10 +42,14 @@ public final class Initialization {
 			tariffs.get(i).subscribe("MP"+(rand.nextInt(8999999)+1000000), "Валера", "Носовеов");
 			tariffs.get(i).subscribe("MP"+(rand.nextInt(8999999)+1000000), "Катя", "Таня");
 			sum+=tariffs.get(i).getClientsNumbers();
-			System.out.println(tariffs.get(i).getClients().toString());
+			System.out.println(tariffs.get(i).getTariffName()+":");
+			tariffs.get(i).getClients();
+			System.out.println(tariffs.get(i).toString());
+			System.out.println("=============================================");
 		}
+		
 		System.out.println(sum);
 		System.out.println(MobileTariff.getAbonementPriceSort().toString());
-		MobileTariff.getDesireTariff(tariffs, 18).forEach(System.out::println);;
+		MobileTariff.getDesireTariff(tariffs, 25).forEach(System.out::println);;
 	}
 }

@@ -2,7 +2,6 @@
  * 
  */
 package by.pvt.heldyieu.mobile;
-import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /** 

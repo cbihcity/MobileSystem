@@ -20,7 +20,7 @@ public class InvalidValueException extends Exception {
 		super();
 	}
 
-	public InvalidValueException(String message) {
+	public InvalidValueException(final String message) {
 		super(message);
 	}
 	

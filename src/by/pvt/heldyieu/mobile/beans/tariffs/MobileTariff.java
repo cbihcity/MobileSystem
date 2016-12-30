@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import by.pvt.heldyieu.mobile.beans.interfaces.Subscribable;
 import by.pvt.heldyieu.mobile.beans.interfaces.Unsubscribable;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
@@ -17,11 +18,15 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  */
 public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	private static int count = 0;
-	private static final Map<Integer, MobileTariff> tariffs = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
+	private static final Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список
+																									// доступных
+																									// тарифов
 	private double abonementPrice; // абонентская плата
 	private String tariffName; // название тарифного плана
 	private Map<String, String> clients = new HashMap<String, String>();
-	private static Map<Double, String> abonementPriceSort = new TreeMap<Double, String>(); // отсортированный список тарифов
+	private static Map<Double, String> abonementPriceSort = new TreeMap<Double, String>(); // отсортированный
+																							// список
+																							// тарифов
 
 	/**
 	 * Creates new entity of the class <b>{@code MobileTariff}</b>
@@ -34,9 +39,12 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	 * Creates new entity of the class <b>{@code MobileTariff}</b> and
 	 * initialize it
 	 * 
-	 * @param tariffname - name of tariff
-	 * @param abonementPrice - the price of tariff per month
-	 * @throws IllegalValueException - see in super constructor
+	 * @param tariffname
+	 *            - name of tariff
+	 * @param abonementPrice
+	 *            - the price of tariff per month
+	 * @throws IllegalValueException
+	 *             - see in super constructor
 	 */
 	public MobileTariff(String tariffname, double abonementPrice)
 			throws InvalidValueException {
@@ -51,11 +59,78 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 		addTariffInstance(this);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Название тарифного плана - " + getTariffName()
+				+ "; Стоимость абонентской платы - " + getAbonementPrice();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(abonementPrice);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
+		result = prime * result
+				+ ((tariffName == null) ? 0 : tariffName.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof MobileTariff)) {
+			return false;
+		}
+		MobileTariff other = (MobileTariff) obj;
+		if (Double.doubleToLongBits(abonementPrice) != Double
+				.doubleToLongBits(other.abonementPrice)) {
+			return false;
+		}
+		if (clients == null) {
+			if (other.clients != null) {
+				return false;
+			}
+		} else if (!clients.equals(other.clients)) {
+			return false;
+		}
+		if (tariffName == null) {
+			if (other.tariffName != null) {
+				return false;
+			}
+		} else if (!tariffName.equals(other.tariffName)) {
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * @return the tariffs
 	 */
 	public static Map<Integer, MobileTariff> getTariffs() {
-		return tariffs;
+		return TARIFFS;
 	}
 
 	/**
@@ -75,8 +150,8 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	/**
 	 * @return the clients
 	 */
-	public Map<String, String> getClients() {
-		return clients;
+	public void getClients() {
+		clients.forEach((passport, surname) -> System.out.println(passport + " " + surname));
 	}
 
 	/**
@@ -92,20 +167,20 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 		return findTariff(tariffs, price);
 	}
 
-	private void addTariffInstance(MobileTariff mobileTariff) {
-		tariffs.put(count++, mobileTariff);
+	private void addTariffInstance(final MobileTariff mobileTariff) {
+		TARIFFS.put(count++, mobileTariff);
 	}
 
 	private static void sortOnAbonementPrice() {
-		for (int i = 0; i < tariffs.size(); i++) {
-			abonementPriceSort.put(tariffs.get(i).getCost(), tariffs.get(i)
+		for (int i = 0; i < TARIFFS.size(); i++) {
+			abonementPriceSort.put(TARIFFS.get(i).getCost(), TARIFFS.get(i)
 					.getTariffName());
 		}
 	}
 
 	private static List<MobileTariff> findTariff(
-			Map<Integer, MobileTariff> tariffs, double price) {
-		List<MobileTariff> target = new ArrayList<MobileTariff>();
+			final Map<Integer, MobileTariff> tariffs, final double price) {
+		final List<MobileTariff> target = new ArrayList<MobileTariff>();
 		for (int i = 0; i < tariffs.size(); i++) {
 			if (tariffs.get(i).getCost() <= price) {
 				target.add(tariffs.get(i));

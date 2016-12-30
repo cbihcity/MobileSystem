@@ -18,7 +18,7 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  */
 public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	private static int count = 0;
-	private static final Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список
+	private static MobileTariff [] TARIFFS = new MobileTariff [4]; // список
 																									// доступных
 																									// тарифов
 	private double abonementPrice; // абонентская плата
@@ -129,7 +129,7 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	/**
 	 * @return the tariffs
 	 */
-	public static Map<Integer, MobileTariff> getTariffs() {
+	public static MobileTariff [] getTariffs() {
 		return TARIFFS;
 	}
 
@@ -163,27 +163,27 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 	}
 
 	public static List<MobileTariff> getDesireTariff(
-			Map<Integer, MobileTariff> tariffs, double price) {
+			MobileTariff [] tariffs, double price) {
 		return findTariff(tariffs, price);
 	}
 
 	private void addTariffInstance(final MobileTariff mobileTariff) {
-		TARIFFS.put(count++, mobileTariff);
+		TARIFFS[count++] = mobileTariff;
 	}
 
 	private static void sortOnAbonementPrice() {
-		for (int i = 0; i < TARIFFS.size(); i++) {
-			abonementPriceSort.put(TARIFFS.get(i).getCost(), TARIFFS.get(i)
+		for (int i = 0; i < TARIFFS.length; i++) {
+			abonementPriceSort.put(TARIFFS[i].getCost(), TARIFFS[i]
 					.getTariffName());
 		}
 	}
 
 	private static List<MobileTariff> findTariff(
-			final Map<Integer, MobileTariff> tariffs, final double price) {
+			MobileTariff [] tariffs, final double price) {
 		final List<MobileTariff> target = new ArrayList<MobileTariff>();
-		for (int i = 0; i < tariffs.size(); i++) {
-			if (tariffs.get(i).getCost() <= price) {
-				target.add(tariffs.get(i));
+		for (int i = 0; i < tariffs.length; i++) {
+			if (tariffs[i].getCost() <= price) {
+				target.add(tariffs[i]);
 			}
 		}
 		return target;

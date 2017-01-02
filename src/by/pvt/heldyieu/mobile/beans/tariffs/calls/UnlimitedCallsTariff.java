@@ -3,9 +3,6 @@
  */
 package by.pvt.heldyieu.mobile.beans.tariffs.calls;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
@@ -13,11 +10,6 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class UnlimitedCallsTariff extends CallsTariff {
-	private Map<String, String> clients = new HashMap<String, String>(); // список
-																			// клиентов
-																			// данного
-																			// тарифного
-																			// плана
 
 	/**
 	 * 
@@ -42,8 +34,8 @@ public class UnlimitedCallsTariff extends CallsTariff {
 	/**
 	 * @return the clients
 	 */
-	public void getClients() {
-		clients.forEach((passport, surname) -> System.out.println(passport + " " + surname));
+	public void printClients() {
+		super.printClients();
 	}
 
 	/*

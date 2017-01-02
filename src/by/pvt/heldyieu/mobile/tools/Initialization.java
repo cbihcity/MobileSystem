@@ -21,7 +21,6 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  */
 public final class Initialization {
 	public static void main(String[] args) {
-		MobileTariff [] tariffs = new MobileTariff[MobileTariff.getTariffs().length];
 		try {
 			new LimitedInternetTariff("Лимитируемые интернет", 30.5, 4.5);
 			new UnlimitedInternetTariff("Нелимитируемый интернет", 41.5, 5.6);
@@ -31,7 +30,7 @@ public final class Initialization {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-		tariffs = MobileTariff.getTariffs();
+		MobileTariff [] tariffs = MobileTariff.getTariffs();
 		int sum=0;
 		Random rand = new Random();
 		for (int i = 0; i < tariffs.length; i++) {
@@ -41,7 +40,7 @@ public final class Initialization {
 			tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Катя", "Таня");
 			sum+=tariffs[i].getClientsNumbers();
 			System.out.println(tariffs[i].getTariffName()+":");
-			tariffs[i].getClients();
+			tariffs[i].printClients();
 			System.out.println(tariffs[i].toString());
 			System.out.println("=============================================");
 		}

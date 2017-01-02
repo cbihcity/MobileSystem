@@ -3,9 +3,6 @@
  */
 package by.pvt.heldyieu.mobile.beans.tariffs.internet;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
@@ -13,11 +10,6 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class UnlimitedInternetTariff extends InternetTariff {
-	private Map<String, String> clients = new HashMap<String, String>(); // список
-																			// клиентов
-																			// данного
-																			// тарифного
-																			// плана
 
 	public UnlimitedInternetTariff() {
 		super();
@@ -28,8 +20,8 @@ public class UnlimitedInternetTariff extends InternetTariff {
 		super(tarrifName, abonementPrice, internetPrice);
 	}
 
-	public void getClients() {
-		clients.forEach((passport, surname) -> System.out.println(passport + " " + surname));
+	public void printClients() {
+		super.printClients();
 	}
 
 	/*

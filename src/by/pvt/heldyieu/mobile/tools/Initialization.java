@@ -38,6 +38,7 @@ public final class Initialization {
 			tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Коля", "Коливоич");
 			tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Валера", "Носовеов");
 			tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Катя", "Таня");
+			tariffs[i]=null;
 			sum+=tariffs[i].getClientsNumbers();
 			System.out.println(tariffs[i].getTariffName()+":");
 			tariffs[i].printClients();

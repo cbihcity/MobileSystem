@@ -17,7 +17,7 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 /**
  * @author i.heldyieu version 1.0
  */
-public abstract class MobileTariff implements Constants,Subscribable, Unsubscribable {
+public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable, Cloneable {
 	private static int count = 0;
 	private static final MobileTariff [] TARIFFS = new MobileTariff [NUMBER_OF_TARIFFS]; // список доступных тарифов
 	private double abonementPrice; // абонентская плата
@@ -121,12 +121,12 @@ public abstract class MobileTariff implements Constants,Subscribable, Unsubscrib
 		}
 		return true;
 	}
-
+		
 	/**
 	 * @return the tariffs
 	 */
-	public static MobileTariff [] getTariffs() {
-		return TARIFFS.clone();
+	public final static MobileTariff [] getTariffs() {
+		return MobileTariff.TARIFFS.clone();
 	}
 
 	/**
@@ -143,20 +143,6 @@ public abstract class MobileTariff implements Constants,Subscribable, Unsubscrib
 		return tariffName;
 	}
 	
-	/**
-	 * @param abonementPrice the abonementPrice to set
-	 */
-	public void setAbonementPrice(double abonementPrice) {
-		this.abonementPrice = abonementPrice;
-	}
-
-	/**
-	 * @param tariffName the tariffName to set
-	 */
-	public void setTariffName(String tariffName) {
-		this.tariffName = tariffName;
-	}
-
 	/**
 	 * @return print the list of the clients
 	 */

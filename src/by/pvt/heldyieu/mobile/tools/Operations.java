@@ -2,7 +2,9 @@ package by.pvt.heldyieu.mobile.tools;
 
 import java.util.Scanner;
 
-public class Operations {
+import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
+
+public class Operations implements Constants, Cloneable{
 public static Scanner input = new Scanner(System.in,"utf-8");
 	
 	/**
@@ -10,6 +12,7 @@ public static Scanner input = new Scanner(System.in,"utf-8");
 	 */
 	private Operations(){
 	}
+	
 	
 	
 }

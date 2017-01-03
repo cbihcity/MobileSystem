@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.interfaces.Subscribable;
 import by.pvt.heldyieu.mobile.beans.interfaces.Unsubscribable;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
@@ -16,9 +17,9 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 /**
  * @author i.heldyieu version 1.0
  */
-public abstract class MobileTariff implements Subscribable, Unsubscribable {
+public abstract class MobileTariff implements Constants,Subscribable, Unsubscribable {
 	private static int count = 0;
-	private static final MobileTariff [] TARIFFS = new MobileTariff [4]; // список доступных тарифов
+	private static final MobileTariff [] TARIFFS = new MobileTariff [NUMBER_OF_TARIFFS]; // список доступных тарифов
 	private double abonementPrice; // абонентская плата
 	private String tariffName; // название тарифного плана
 	protected Map<String, String> clients = new HashMap<String, String>();
@@ -194,7 +195,7 @@ public abstract class MobileTariff implements Subscribable, Unsubscribable {
 		return target;
 	}
 
-	private void addTariffInstance(final MobileTariff mobileTariff) {
+	private final void addTariffInstance(final MobileTariff mobileTariff) {
 		TARIFFS[count++] = mobileTariff;
 	}
 

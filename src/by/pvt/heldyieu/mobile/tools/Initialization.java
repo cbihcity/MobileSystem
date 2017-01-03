@@ -30,7 +30,7 @@ public final class Initialization {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-		MobileTariff [] tariffs = MobileTariff.getTariffs();
+		MobileTariff[] tariffs = MobileTariff.getTariffs();
 		int sum=0;
 		Random rand = new Random();
 		for (int i = 0; i < tariffs.length; i++) {

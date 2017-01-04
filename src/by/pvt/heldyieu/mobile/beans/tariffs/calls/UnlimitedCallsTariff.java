@@ -28,7 +28,6 @@ public class UnlimitedCallsTariff extends CallsTariff {
 	public UnlimitedCallsTariff(String tariffname, double abonementPrice,
 			double callsPrice) throws InvalidValueException {
 		super(tariffname, abonementPrice, callsPrice);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

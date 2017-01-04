@@ -16,7 +16,6 @@ public class LimitedInternetTariff extends InternetTariff {
 	 */
 	public LimitedInternetTariff() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -28,7 +27,6 @@ public class LimitedInternetTariff extends InternetTariff {
 	public LimitedInternetTariff(String tariffname, double abonementPrice,
 			double internetPrice) throws InvalidValueException {
 		super(tariffname, abonementPrice, internetPrice);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void printClients() {

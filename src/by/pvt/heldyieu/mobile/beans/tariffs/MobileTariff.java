@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.interfaces.Subscribable;
 import by.pvt.heldyieu.mobile.beans.interfaces.Unsubscribable;
@@ -18,11 +17,11 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  * @author i.heldyieu version 1.0
  */
 public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable {
-	private static int count = 0;
-	private static final Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
 	private double abonementPrice; // абонентская плата
 	private String tariffName; // название тарифного плана
 	protected Map<String, String> clients = new HashMap<String, String>();
+	private static int count = 0;
+	private static final Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
 	private static Map<Double, String> abonementPriceSort = new TreeMap<Double, String>(); // отсортированный
 																							// список
 																							// тарифов
@@ -42,8 +41,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	 * @param abonementPrice	- the price of tariff per month
 	 * @throws IllegalValueException	- see in super constructor
 	 */
-	public MobileTariff(String tariffname, double abonementPrice)
-			throws InvalidValueException {
+	public MobileTariff(String tariffname, double abonementPrice) throws InvalidValueException {
 		this.tariffName = tariffname;
 		if (abonementPrice < 0) {
 			throw new InvalidValueException(
@@ -65,8 +63,9 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 				+ "; Стоимость абонентской платы - " + getAbonementPrice();
 	}
 
-	/*
-	 * (non-Javadoc)
+	
+		
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -82,8 +81,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -118,7 +116,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 		}
 		return true;
 	}
-		
+
 	/**
 	 * @return the tariffs
 	 */

@@ -17,9 +17,9 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 /**
  * @author i.heldyieu version 1.0
  */
-public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable, Cloneable {
+public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable {
 	private static int count = 0;
-	private static final MobileTariff [] TARIFFS = new MobileTariff [NUMBER_OF_TARIFFS]; // список доступных тарифов
+	private static final Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
 	private double abonementPrice; // абонентская плата
 	private String tariffName; // название тарифного плана
 	protected Map<String, String> clients = new HashMap<String, String>();
@@ -57,7 +57,6 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -68,7 +67,6 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -86,7 +84,6 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -125,8 +122,8 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	/**
 	 * @return the tariffs
 	 */
-	public final static MobileTariff [] getTariffs() {
-		return MobileTariff.TARIFFS.clone();
+	public final static Map<Integer, MobileTariff> getTariffs() {
+		return MobileTariff.TARIFFS;
 	}
 
 	/**
@@ -182,12 +179,12 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	}
 
 	private final void addTariffInstance(final MobileTariff mobileTariff) {
-		TARIFFS[count++] = mobileTariff;
+		TARIFFS.put(++count, mobileTariff);
 	}
 
 	private static void sortOnAbonementPrice() {
-		for (int i = 0; i < TARIFFS.length; i++) {
-			abonementPriceSort.put(TARIFFS[i].getCost(), TARIFFS[i]
+		for (int i = 1; i <= TARIFFS.size(); i++) {
+			abonementPriceSort.put(TARIFFS.get(i).getCost(), TARIFFS.get(i)
 					.getTariffName());
 		}
 	}

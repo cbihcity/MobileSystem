@@ -2,24 +2,23 @@
  * 
  */
 package by.pvt.heldyieu.mobile;
-import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
-/** 
+import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
+import by.pvt.heldyieu.mobile.tools.Initialization;
+
+/**
  * Starts the application
  * 
- * @author i.heldyieu
- * version 1.0
+ * @author i.heldyieu version 1.0
  */
 public class MobileSystemRunner {
 
 	/**
 	 * @param args
-	 * @throws InvalidValueException 
+	 * @throws InvalidValueException
 	 */
-	public static void main(String[] args) throws InvalidValueException {
-		// TODO Auto-generated method stub
-	//MobileTariff d = new MobileTariff();
-		
+	public static void main(String[] args) {
+		Initialization.initialize();
 	}
 
 }

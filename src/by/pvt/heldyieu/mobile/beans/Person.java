@@ -4,6 +4,7 @@
 package by.pvt.heldyieu.mobile.beans;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * @author i.heldyieu
@@ -12,7 +13,7 @@ import java.util.Calendar;
 public abstract class Person {
 	private String firstName;
 	private String lastName;
-	private Calendar birthday;
+	private GregorianCalendar birthday;
 
 	/**
 	 * 
@@ -26,7 +27,7 @@ public abstract class Person {
 	 * @param lastName
 	 * @param birthday
 	 */
-	public Person(String firstName, String lastName, Calendar birthday) {
+	public Person(String firstName, String lastName, GregorianCalendar birthday) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -66,7 +67,7 @@ public abstract class Person {
 	/**
 	 * @return the birthday
 	 */
-	public Calendar getBirthday() {
+	public GregorianCalendar getBirthday() {
 		return birthday;
 	}
 
@@ -74,7 +75,7 @@ public abstract class Person {
 	 * @param birthday
 	 *            the birthday to set
 	 */
-	public void setBirthday(Calendar birthday) {
+	public void setBirthday(GregorianCalendar birthday) {
 		this.birthday = birthday;
 	}
 
@@ -85,8 +86,9 @@ public abstract class Person {
 	 */
 	@Override
 	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName
-				+ ", birthday=" + birthday + "]";
+		return "Менеджер - "+getFirstName()+" "+getLastName()+", дата рождения - "+getBirthday().get(Calendar.YEAR)+" "
+																				+getBirthday().get(Calendar.MONTH)+" "
+																				+getBirthday().get(Calendar.DATE);
 	}
 
 	/*

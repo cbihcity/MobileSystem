@@ -9,8 +9,6 @@ package by.pvt.heldyieu.mobile.exceptions;
  *
  */
 public class InvalidValueException extends Exception {
-
-	
 	/**
 	 * 
 	 */

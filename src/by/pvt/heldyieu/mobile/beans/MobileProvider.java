@@ -1,7 +1,6 @@
 package by.pvt.heldyieu.mobile.beans;
 
-import java.util.Arrays;
-
+import java.util.Map;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 
 public abstract class MobileProvider {
@@ -10,7 +9,7 @@ public abstract class MobileProvider {
 	private String phoneNumber;
 	private String webSite;
 	private String eMail;
-	private MobileTariff[] listOfMobileTariffs;
+	private Map<Integer,MobileTariff> listOfMobileTariffs;
 
 	/**
 	 * 
@@ -32,32 +31,31 @@ public abstract class MobileProvider {
 												String address,
 												String phoneNumber, 
 												String webSite, 
-												String eMail) {
+												String eMail, MobileTariff mobiletariff) {
 		super();
 		this.companyName = companyName;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.webSite = webSite;
 		this.eMail = eMail;
-		listOfMobileTariffs = MobileTariff.getTariffs();
+		listOfMobileTariffs= MobileTariff.getTariffs();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "MobileProvider [companyName=" + companyName + ", address="
 				+ address + ", phoneNumber=" + phoneNumber + ", webSite="
-				+ webSite + ", eMail=" + eMail + ", listOfManagers="
-				+ Arrays.toString(listOfMobileTariffs) + "]";
+				+ webSite + ", eMail=" + eMail + ", listOfMobileTariffs="
+				+ listOfMobileTariffs + "]";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -68,16 +66,17 @@ public abstract class MobileProvider {
 		result = prime * result
 				+ ((companyName == null) ? 0 : companyName.hashCode());
 		result = prime * result + ((eMail == null) ? 0 : eMail.hashCode());
-		result = prime * result + Arrays.hashCode(listOfMobileTariffs);
+		result = prime
+				* result
+				+ ((listOfMobileTariffs == null) ? 0 : listOfMobileTariffs
+						.hashCode());
 		result = prime * result
 				+ ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + ((webSite == null) ? 0 : webSite.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -113,7 +112,11 @@ public abstract class MobileProvider {
 		} else if (!eMail.equals(other.eMail)) {
 			return false;
 		}
-		if (!Arrays.equals(listOfMobileTariffs, other.listOfMobileTariffs)) {
+		if (listOfMobileTariffs == null) {
+			if (other.listOfMobileTariffs != null) {
+				return false;
+			}
+		} else if (!listOfMobileTariffs.equals(other.listOfMobileTariffs)) {
 			return false;
 		}
 		if (phoneNumber == null) {

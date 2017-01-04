@@ -3,8 +3,7 @@
  */
 package by.pvt.heldyieu.mobile.beans;
 
-import java.util.Calendar;
-
+import java.util.GregorianCalendar;
 import by.pvt.heldyieu.mobile.enums.Category;
 
 /**
@@ -24,7 +23,7 @@ public class Manager extends Person {
 	/**
 	 * @param category
 	 */
-	public Manager(String firstName, String lastName, Calendar birthday, Category category) {
+	public Manager(String firstName, String lastName, GregorianCalendar birthday, Category category) {
 		super(firstName, lastName, birthday);
 		this.category = category;
 	}
@@ -49,9 +48,7 @@ public class Manager extends Person {
 	
 	@Override
 	public String toString() {
-		return "Manager [category=" + category + ", getFirstName()="
-				+ getFirstName() + ", getLastName()=" + getLastName()
-				+ ", getBirthday()=" + getBirthday() + "]";
+		return super.toString()+", Категория - "+category.getCategory();
 	}
 
 	/* (non-Javadoc)

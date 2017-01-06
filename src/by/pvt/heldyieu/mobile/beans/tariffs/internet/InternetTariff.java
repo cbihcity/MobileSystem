@@ -16,7 +16,13 @@ public abstract class InternetTariff extends MobileTariff {
 	public InternetTariff(String tariffname, double abonementPrice,
 			double internetPrice) throws InvalidValueException {
 		super(tariffname, abonementPrice);
-		this.internetPrice = internetPrice;
+		if (internetPrice < 0) {
+			throw new InvalidValueException(
+					"Стоимость интернета не может быть < 0. Объект класса "
+							+ this.getClass().getName() + " не создан.");
+		} else {
+			this.internetPrice = internetPrice;
+		}
 	}
 
 	public InternetTariff() {

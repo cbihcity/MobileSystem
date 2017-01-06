@@ -3,7 +3,6 @@
  */
 package by.pvt.heldyieu.mobile;
 
-import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 import by.pvt.heldyieu.mobile.tools.Initialization;
 
 /**
@@ -15,7 +14,7 @@ public class MobileSystemRunner {
 
 	/**
 	 * @param args
-	 * @throws InvalidValueException
+	 * @throws InvalidValueExceptio
 	 */
 	public static void main(String[] args) {
 		Initialization.initialize();

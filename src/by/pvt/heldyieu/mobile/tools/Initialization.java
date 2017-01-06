@@ -4,19 +4,10 @@
 package by.pvt.heldyieu.mobile.tools;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
-import by.pvt.heldyieu.mobile.beans.tariffs.calls.LimitedCallsTariff;
-import by.pvt.heldyieu.mobile.beans.tariffs.calls.UnlimitedCallsTariff;
-import by.pvt.heldyieu.mobile.beans.tariffs.internet.LimitedInternetTariff;
-import by.pvt.heldyieu.mobile.beans.tariffs.internet.UnlimitedInternetTariff;
-import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
  * @author HeroDishonest
@@ -70,102 +61,35 @@ public final class Initialization implements Constants {
 
 		// Create new entities for LimitedCallsTariff tariffs from input files
 		file = new File(INPUT_FOLDER + LIMITED_CALLS_TARIFF);
-		createTariffs(file, LIMITED_CALLS_TARIFF);
+		Operations.createTariffs(file, LIMITED_CALLS_TARIFF);
 		
-		// Create new entities for LimitedCallsTariff tariffs from input files
+		// Create new entities for LimitedInternetTariff tariffs from input files
 		file = new File(INPUT_FOLDER + LIMITED_INERNET_TARIFF);
-		createTariffs(file, LIMITED_INERNET_TARIFF);
+		Operations.createTariffs(file, LIMITED_INERNET_TARIFF);
 		
-		// Create new entities for LimitedCallsTariff tariffs from input files
+		// Create new entities for UnlimitedCallsTariff tariffs from input files
 		file = new File(INPUT_FOLDER + UNLIMITED_CALLS_TARIFF);
-		createTariffs(file, UNLIMITED_CALLS_TARIFF);
+		Operations.createTariffs(file, UNLIMITED_CALLS_TARIFF);
 		
-		// Create new entities for LimitedCallsTariff tariffs from input files
+		// Create new entities for UnlimitedInternetTariff tariffs from input files
 		file = new File(INPUT_FOLDER + UNLIMITED_INERNET_TARIFF);
-		createTariffs(file, UNLIMITED_INERNET_TARIFF);
+		Operations.createTariffs(file, UNLIMITED_INERNET_TARIFF);
 		
+		//Get all tariffs and store it in local variable for operations
 		mapOfTariffs = MobileTariff.getTariffs();
+		
+		file = new File(INPUT_FOLDER + CLIENTS_FILE);
+		Operations.createRandomSubscribers(file, mapOfTariffs);
+		
 		//print all tariffs
-		Operations.printTariffs(mapOfTariffs);
+		//Operations.printTariffs(mapOfTariffs);
+		
+		for (MobileTariff tariff : mapOfTariffs.values()) {
+			System.out.println(tariff.getTariffName()+";");
+			tariff.printClients();
+		}
 
 	}
 
 	
-
-	private static void createTariffs(File file, String typeTariff) {
-		List<String> strings = new ArrayList<>();
-		strings = Operations.readFile(strings, file);
-		Iterator<String> itStrings = strings.iterator();
-		while (itStrings.hasNext()) {
-			List<String> tariffTokens = Operations.stringToTokens(itStrings
-					.next());
-			Iterator<String> itTokens = tariffTokens.iterator();
-			while (itTokens.hasNext()) {
-				switch (typeTariff) {
-				case LIMITED_CALLS_TARIFF:
-					createLimitedCallsTariff(itTokens);
-					break;
-				case LIMITED_INERNET_TARIFF:
-					createLimitedInternetTariff(itTokens);
-					break;
-				case UNLIMITED_CALLS_TARIFF:
-					createUnlimitedCallsTariff(itTokens);
-					break;
-				case UNLIMITED_INERNET_TARIFF:
-					createUnlimitedInternetTariff(itTokens);
-					break;
-				default:
-					break;
-				}
-			}
-		}
-	}
-
-	private static void createLimitedCallsTariff(Iterator<String> itTokens) {
-		try {
-			new LimitedCallsTariff(itTokens.next(),
-					Double.parseDouble(itTokens.next()),
-					Double.parseDouble(itTokens.next()));
-		} catch (NumberFormatException | InvalidValueException e) {
-			Logger.log(e);
-		} catch (IllegalArgumentException | NoSuchElementException e) {
-			Logger.log(e);
-		}
-	}
-	
-	private static void createLimitedInternetTariff(Iterator<String> itTokens) {
-		try {
-			new LimitedInternetTariff(itTokens.next(),
-					Double.parseDouble(itTokens.next()),
-					Double.parseDouble(itTokens.next()));
-		} catch (NumberFormatException | InvalidValueException e) {
-			Logger.log(e);
-		} catch (IllegalArgumentException | NoSuchElementException e) {
-			Logger.log(e);
-		}
-	}
-	
-	private static void createUnlimitedCallsTariff(Iterator<String> itTokens) {
-		try {
-			new UnlimitedCallsTariff(itTokens.next(),
-					Double.parseDouble(itTokens.next()),
-					Double.parseDouble(itTokens.next()));
-		} catch (NumberFormatException | InvalidValueException e) {
-			Logger.log(e);
-		} catch (IllegalArgumentException | NoSuchElementException e) {
-			Logger.log(e);
-		}
-	}
-	
-	private static void createUnlimitedInternetTariff(Iterator<String> itTokens) {
-		try {
-			new UnlimitedInternetTariff(itTokens.next(),
-					Double.parseDouble(itTokens.next()),
-					Double.parseDouble(itTokens.next()));
-		} catch (NumberFormatException | InvalidValueException e) {
-			Logger.log(e);
-		} catch (IllegalArgumentException | NoSuchElementException e) {
-			Logger.log(e);
-		}
-	}
 }

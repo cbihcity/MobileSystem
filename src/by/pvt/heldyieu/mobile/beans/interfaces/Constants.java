@@ -8,4 +8,5 @@ public interface Constants {
 	String LIMITED_INERNET_TARIFF = "LimitedInternetTariff.txt";
 	String UNLIMITED_CALLS_TARIFF = "UnlimitedCallsTariff.txt";
 	String UNLIMITED_INERNET_TARIFF = "UnlimitedInternetTariff.txt";
+	String CLIENTS_FILE = "Clients.txt";
 }

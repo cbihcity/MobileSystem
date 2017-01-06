@@ -16,7 +16,13 @@ public abstract class CallsTariff extends MobileTariff {
 	public CallsTariff(String tariffname, double abonementPrice,
 			double callsPrice) throws InvalidValueException {
 		super(tariffname, abonementPrice);
-		this.callsPrice = callsPrice;
+		if (callsPrice < 0) {
+			throw new InvalidValueException(
+					"Стоимость звонков не может быть < 0. Объект класса "
+							+ this.getClass().getName() + " не создан.");
+		} else {
+			this.callsPrice = callsPrice;
+		}
 	}
 
 	public CallsTariff() {

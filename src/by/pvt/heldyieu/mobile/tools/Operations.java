@@ -23,9 +23,9 @@ import by.pvt.heldyieu.mobile.beans.tariffs.internet.UnlimitedInternetTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 public class Operations implements Constants {
-public static Scanner input = new Scanner(System.in,"utf-8");
-public static List<String> namesClients = new ArrayList<String>();
-public static List<String> surnamesClients = new ArrayList<String>();
+private static Scanner input = new Scanner(System.in,"utf-8");
+private static List<String> namesClients = new ArrayList<String>();
+private static List<String> surnamesClients = new ArrayList<String>();
 	
 	/**
 	 * Closed constructor <b>{@code Operations}</b>
@@ -194,26 +194,31 @@ public static List<String> surnamesClients = new ArrayList<String>();
 		}
 	}
 
-	public static void createRandomSubscribers(File file, Map<Integer, MobileTariff> mapOfTariffs) {
-		Operations.createListsNamesAndSurnames(file);
+	public static void createRandomSubscribers(File file, File file2, Map<Integer, MobileTariff> mapOfTariffs) {
+		Operations.createListsNamesAndSurnames(file,file2);
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			Operations.subscribeForTariff(tariff);
 		}
 	}
 
-	private static void createListsNamesAndSurnames(File file) {
+	private static void createListsNamesAndSurnames(File file, File file2) {
 		List<String> tempNames = new ArrayList<>();
 		List<String> tempClients = new ArrayList<>();
 		Operations.readFile(tempNames, file);
-		Operations.readFile(tempClients, file);
-		Iterator<String> namesTokens = tempNames.iterator();
-		while (namesTokens.hasNext()) {
-			namesClients = Operations.stringToTokens(namesTokens.next());
+		Operations.readFile(tempClients, file2);
+		if (tempNames.size()>0 && tempClients.size()>0) {
+			Iterator<String> namesTokens = tempNames.iterator();
+			Iterator<String> surnameTokens = tempClients.iterator();
+			while (namesTokens.hasNext()) {
+				namesClients = Operations.stringToTokens(namesTokens.next());
+				}
+			while (surnameTokens.hasNext()) {
+				surnamesClients = Operations.stringToTokens(surnameTokens.next());
 			}
-		Iterator<String> surnameTokens = tempClients.iterator();
-		while (surnameTokens.hasNext()) {
-			surnamesClients = Operations.stringToTokens(surnameTokens.next());
-			}
+		} else {
+			System.out.println("Подробное описание ошибки в файле log.txt");
+			System.exit(1);
+		}
 	}
 	
 	private static void subscribeForTariff(MobileTariff tariff) {
@@ -225,7 +230,7 @@ public static List<String> surnamesClients = new ArrayList<String>();
 		int randomNumberClients = randomGenerator.nextInt(50);
 		for (int i = 0; i < randomNumberClients; i++) {
 			tariff.subscribe(
-					"MP" + (randomGenerator.nextInt(10000000)),
+					"MP" + (randomGenerator.nextInt(PASSPORT_VALUE_FOR_RANDOM)+1000000),
 					arraySurnames[randomGenerator.nextInt(arraySurnames.length)],
 					arrayNames[randomGenerator.nextInt(arrayNames.length)]);
 		}

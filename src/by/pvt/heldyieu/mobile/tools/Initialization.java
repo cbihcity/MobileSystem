@@ -15,7 +15,9 @@ import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
  */
 public final class Initialization implements Constants {
 	private static File file;
+	private static File file2;
 	private static Map<Integer, MobileTariff> mapOfTariffs = new HashMap<Integer, MobileTariff>();
+	
 
 	// public static void main(String[] args) {
 	// try {
@@ -78,8 +80,9 @@ public final class Initialization implements Constants {
 		//Get all tariffs and store it in local variable for operations
 		mapOfTariffs = MobileTariff.getTariffs();
 		
-		file = new File(INPUT_FOLDER + CLIENTS_FILE);
-		Operations.createRandomSubscribers(file, mapOfTariffs);
+		file = new File(INPUT_FOLDER + CLIENTS_FILE_NAMES);
+		file2 = new File(INPUT_FOLDER + CLIENTS_FILE_SURNAMES);
+		Operations.createRandomSubscribers(file, file2, mapOfTariffs);
 		
 		//print all tariffs
 		//Operations.printTariffs(mapOfTariffs);
@@ -87,6 +90,7 @@ public final class Initialization implements Constants {
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			System.out.println(tariff.getTariffName()+";");
 			tariff.printClients();
+			System.out.println("==========================================");
 		}
 
 	}

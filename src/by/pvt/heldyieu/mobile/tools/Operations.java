@@ -237,4 +237,13 @@ private static List<String> surnamesClients = new ArrayList<String>();
 							+ " возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
+	
+	public static void getClientsNumber(Map<Integer, MobileTariff> mapOfTariffs){
+		int clientsNumber = 0; 
+		for (MobileTariff tariff : mapOfTariffs.values()) {
+			clientsNumber += tariff.getClientsNumbers();
+		}
+		System.out.println("Общая численность клиентов - "+clientsNumber);
+	}
+	
 }

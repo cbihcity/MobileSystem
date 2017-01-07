@@ -80,6 +80,7 @@ public final class Initialization implements Constants {
 		//Get all tariffs and store it in local variable for operations
 		mapOfTariffs = MobileTariff.getTariffs();
 		
+		//Create list of random subscribers for all tariffs based on input files
 		file = new File(INPUT_FOLDER + CLIENTS_FILE_NAMES);
 		file2 = new File(INPUT_FOLDER + CLIENTS_FILE_SURNAMES);
 		Operations.createRandomSubscribers(file, file2, mapOfTariffs);
@@ -87,11 +88,13 @@ public final class Initialization implements Constants {
 		//print all tariffs
 		//Operations.printTariffs(mapOfTariffs);
 		
-		for (MobileTariff tariff : mapOfTariffs.values()) {
-			System.out.println(tariff.getTariffName()+";");
-			tariff.printClients();
-			System.out.println("==========================================");
-		}
+//		for (MobileTariff tariff : mapOfTariffs.values()) {
+//			System.out.println(tariff.getTariffName()+";");
+//			tariff.printClients();
+//			System.out.println("==========================================");
+//		}
+		
+		Operations.getClientsNumber(mapOfTariffs);
 
 	}
 

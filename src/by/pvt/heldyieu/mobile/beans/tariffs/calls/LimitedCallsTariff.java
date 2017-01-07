@@ -3,6 +3,7 @@
  */
 package by.pvt.heldyieu.mobile.beans.tariffs.calls;
 
+import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
@@ -10,70 +11,69 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class LimitedCallsTariff extends CallsTariff {
-
+	private int freeMinutes; //free minutes for this tariff
+	
+	
 	/**
 	 * 
 	 */
 	public LimitedCallsTariff() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param tariffname
 	 * @param abonementPrice
 	 * @param callsPrice
+	 * @param freeMinutes
 	 * @throws InvalidValueException
 	 */
 	public LimitedCallsTariff(String tariffname, double abonementPrice,
-			double callsPrice) throws InvalidValueException {
+			double callsPrice, int freeMinutes) throws InvalidValueException {
 		super(tariffname, abonementPrice, callsPrice);
+		if (freeMinutes < 0) {
+			throw new InvalidValueException(
+					"Количество свободных минут не может быть < 0. Объект класса "
+							+ this.getClass().getName() + " не создан.");
+		} else {
+			this.freeMinutes = freeMinutes;
+		}
 	}
-
+	
 	/**
-	 * @return the clients
+	 * @return the freeMinutes
 	 */
-	public void printClients() {
-		super.printClients();
+	public int getFreeMinutes() {
+		return freeMinutes;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((getClients() == null) ? 0 : clients.hashCode());
+		result = prime * result + freeMinutes;
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!super.equals(obj)) {
+		if (!super.equals(obj))
 			return false;
-		}
-		if (!(obj instanceof LimitedCallsTariff)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		LimitedCallsTariff other = (LimitedCallsTariff) obj;
-		if (clients == null) {
-			if (other.clients != null) {
-				return false;
-			}
-		} else if (!clients.equals(other.clients)) {
+		if (freeMinutes != other.freeMinutes)
 			return false;
-		}
 		return true;
 	}
 
@@ -84,7 +84,14 @@ public class LimitedCallsTariff extends CallsTariff {
 	 */
 	@Override
 	public String toString() {
-		return super.toString()+"; Суммарная стоимость - " + getCost();
+		return super.toString()+"; Количество свободных минут - "+getFreeMinutes()+"; Суммарная стоимость - " + getCost();
+	}
+	
+	/**
+	 * @return the clients
+	 */
+	public void printClients() {
+		super.printClients();
 	}
 
 	public void subscribe(String passport, String surname, String firstname) {
@@ -101,5 +108,10 @@ public class LimitedCallsTariff extends CallsTariff {
 
 	public double getCost() {
 		return getAbonementPrice() + getcallsPrice();
+	}
+
+	@Override
+	public int compareTo(MobileTariff o) {
+		return Double.compare(this.getAbonementPrice(), o.getAbonementPrice());
 	}
 }

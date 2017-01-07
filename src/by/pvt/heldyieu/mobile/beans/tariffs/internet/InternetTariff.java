@@ -26,7 +26,7 @@ public abstract class InternetTariff extends MobileTariff {
 	}
 
 	public InternetTariff() {
-
+		super();
 	}
 
 	/*

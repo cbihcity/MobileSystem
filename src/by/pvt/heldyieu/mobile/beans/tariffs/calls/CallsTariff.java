@@ -26,7 +26,7 @@ public abstract class CallsTariff extends MobileTariff {
 	}
 
 	public CallsTariff() {
-
+		super();
 	}
 
 	/*

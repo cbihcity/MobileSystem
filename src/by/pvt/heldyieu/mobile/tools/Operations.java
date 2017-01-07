@@ -4,15 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
@@ -23,7 +15,7 @@ import by.pvt.heldyieu.mobile.beans.tariffs.internet.UnlimitedInternetTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 public class Operations implements Constants {
-private static Scanner input = new Scanner(System.in,"utf-8");
+//private static Scanner input = new Scanner(System.in,"utf-8");
 private static List<String> namesClients = new ArrayList<String>();
 private static List<String> surnamesClients = new ArrayList<String>();
 	
@@ -70,14 +62,14 @@ private static List<String> surnamesClients = new ArrayList<String>();
 	/**
 	 * Print all available tariffs at MobileTariff
 	 * 
-	 * @param mapOfTariffs - HashMap collection off all tariffs
+	 * @param mapOfTariffs - list of available tariffs
 	 */
 	public static void printTariffs(Map<Integer, MobileTariff> mapOfTariffs) {
 		Set<Map.Entry<Integer, MobileTariff>> set = mapOfTariffs.entrySet();
 		Iterator<Map.Entry<Integer, MobileTariff>> it = set.iterator();
 		while (it.hasNext()) {
 			MobileTariff temp = it.next().getValue();
-			System.out.println("Название тарифного плана - " + temp.toString());
+			System.out.println(temp.toString());
 		}
 	}
 	
@@ -124,7 +116,8 @@ private static List<String> surnamesClients = new ArrayList<String>();
 			while (itTokens.hasNext()) {
 				new LimitedCallsTariff(itTokens.next(),
 						Double.parseDouble(itTokens.next()),
-						Double.parseDouble(itTokens.next()));
+						Double.parseDouble(itTokens.next()),
+						Integer.parseInt(itTokens.next()));
 			}
 		} catch (InvalidValueException | IllegalArgumentException
 				| NoSuchElementException e) {
@@ -143,6 +136,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		try {
 			while (itTokens.hasNext()) {
 				new LimitedInternetTariff(itTokens.next(),
+						Double.parseDouble(itTokens.next()),
 						Double.parseDouble(itTokens.next()),
 						Double.parseDouble(itTokens.next()));
 			}
@@ -164,7 +158,8 @@ private static List<String> surnamesClients = new ArrayList<String>();
 			while (itTokens.hasNext()) {
 				new UnlimitedCallsTariff(itTokens.next(),
 						Double.parseDouble(itTokens.next()),
-						Double.parseDouble(itTokens.next()));
+						Double.parseDouble(itTokens.next()),
+						Integer.parseInt(itTokens.next()));
 			}
 		} catch (InvalidValueException | IllegalArgumentException
 				| NoSuchElementException e) {
@@ -183,6 +178,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		try {
 			while (itTokens.hasNext()) {
 				new UnlimitedInternetTariff(itTokens.next(),
+						Double.parseDouble(itTokens.next()),
 						Double.parseDouble(itTokens.next()),
 						Double.parseDouble(itTokens.next()));
 			}
@@ -244,6 +240,38 @@ private static List<String> surnamesClients = new ArrayList<String>();
 			clientsNumber += tariff.getClientsNumbers();
 		}
 		System.out.println("Общая численность клиентов - "+clientsNumber);
+	}
+	
+	/**
+	 * Displays lists of tariffs sort by abonement price
+	 * @param mapOfTariffs 	- list of available tariffs
+	 * @param index 	- sorting index
+	 */
+	public static void sortServicesBasedOnAbonementPrice(Map<Integer, MobileTariff> mapOfTariffs){
+		List<MobileTariff> list = new ArrayList<>(mapOfTariffs.values());
+		Collections.sort(list, new ComparatorManager());
+		reportAfterSort(list, mapOfTariffs);
+	}
+	
+	/**
+	 * Displays list
+	 * @param list - list of sorted tariffs
+	 * @param mapOfTariffs - list of available tariffs
+	 */
+	public static void reportAfterSort(List<? extends Object> list, Map<Integer, MobileTariff> mapOfTariffs){
+		for(Object s : list){
+			if(s instanceof MobileTariff){
+				Set<Map.Entry<Integer, MobileTariff>> set = mapOfTariffs.entrySet(); 
+				Iterator<Map.Entry<Integer, MobileTariff>> it = set.iterator();
+				while(it.hasNext()){
+					Map.Entry<Integer, MobileTariff> entry = it.next();
+					if(entry.getValue().equals((MobileTariff)s)){
+						System.out.println(entry.getValue().toString());
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 }

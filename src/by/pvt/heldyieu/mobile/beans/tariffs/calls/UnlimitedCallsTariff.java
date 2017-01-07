@@ -3,6 +3,7 @@
  */
 package by.pvt.heldyieu.mobile.beans.tariffs.calls;
 
+import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
@@ -10,31 +11,40 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class UnlimitedCallsTariff extends CallsTariff {
-
+	private int freeMinutes; //free minutes for this tariff
+	
+	
 	/**
 	 * 
 	 */
 	public UnlimitedCallsTariff() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param tariffname
 	 * @param abonementPrice
 	 * @param callsPrice
+	 * @param freeMinutes
 	 * @throws InvalidValueException
 	 */
 	public UnlimitedCallsTariff(String tariffname, double abonementPrice,
-			double callsPrice) throws InvalidValueException {
+			double callsPrice, int freeMinutes) throws InvalidValueException {
 		super(tariffname, abonementPrice, callsPrice);
+		if (freeMinutes < 0) {
+			throw new InvalidValueException(
+					"Количество свободных минут не может быть < 0. Объект класса "
+							+ this.getClass().getName() + " не создан.");
+		} else {
+			this.freeMinutes = freeMinutes;
+		}
 	}
 
 	/**
-	 * @return the clients
+	 * @return the freeMinutes
 	 */
-	public void printClients() {
-		super.printClients();
+	public int getFreeMinutes() {
+		return freeMinutes;
 	}
 
 	/*
@@ -77,6 +87,13 @@ public class UnlimitedCallsTariff extends CallsTariff {
 		return true;
 	}
 
+	/**
+	 * @return the clients
+	 */
+	public void printClients() {
+		super.printClients();
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -84,7 +101,7 @@ public class UnlimitedCallsTariff extends CallsTariff {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "; Cуммарная стоимость - " + getCost();
+		return super.toString()+"; Количество свободных минут - "+getFreeMinutes()+"; Суммарная стоимость - " + getCost();
 	}
 
 	public void subscribe(String passport, String surname, String firstname) {
@@ -101,5 +118,10 @@ public class UnlimitedCallsTariff extends CallsTariff {
 
 	public double getCost() {
 		return getAbonementPrice() + getcallsPrice();
+	}
+
+	@Override
+	public int compareTo(MobileTariff o) {
+		return Double.compare(this.getAbonementPrice(), o.getAbonementPrice());
 	}
 }

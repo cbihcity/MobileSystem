@@ -3,6 +3,7 @@
  */
 package by.pvt.heldyieu.mobile.beans.tariffs.internet;
 
+import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
@@ -10,57 +11,66 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class UnlimitedInternetTariff extends InternetTariff {
-
+	private double freeGb; // size of free internet traffic
+	
 	public UnlimitedInternetTariff() {
 		super();
 	}
 
-	public UnlimitedInternetTariff(String tarrifName, double abonementPrice,
-			double internetPrice) throws InvalidValueException {
-		super(tarrifName, abonementPrice, internetPrice);
+	/**
+	 * @param tariffname
+	 * @param abonementPrice
+	 * @param internetPrice
+	 * @param freeGb
+	 * @throws InvalidValueException
+	 */
+	public UnlimitedInternetTariff(String tariffname, double abonementPrice,
+			double internetPrice, double freeGb) throws InvalidValueException {
+		super(tariffname, abonementPrice, internetPrice);
+		if (freeGb < 0) {
+			throw new InvalidValueException(
+					"Количество свободного интернет траффика не может быть < 0. Объект класса "
+							+ this.getClass().getName() + " не создан.");
+		} else {
+			this.freeGb = freeGb;
+		}
 	}
 
-	public void printClients() {
-		super.printClients();
+	/**
+	 * @return the freeGb
+	 */
+	public double getFreeGb() {
+		return freeGb;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(freeGb);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!super.equals(obj)) {
+		if (!super.equals(obj))
 			return false;
-		}
-		if (!(obj instanceof UnlimitedInternetTariff)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		UnlimitedInternetTariff other = (UnlimitedInternetTariff) obj;
-		if (clients == null) {
-			if (other.clients != null) {
-				return false;
-			}
-		} else if (!clients.equals(other.clients)) {
+		if (Double.doubleToLongBits(freeGb) != Double
+				.doubleToLongBits(other.freeGb))
 			return false;
-		}
 		return true;
 	}
 
@@ -71,7 +81,11 @@ public class UnlimitedInternetTariff extends InternetTariff {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "; Суммарная стоимость - " + getCost();
+		return super.toString() + "; Количество свободного интернет траффика - "+getFreeGb()+"; Суммарная стоимость - " + getCost();
+	}
+	
+	public void printClients() {
+		super.printClients();
 	}
 
 	public void subscribe(String passport, String surname, String firstname) {
@@ -88,5 +102,10 @@ public class UnlimitedInternetTariff extends InternetTariff {
 
 	public double getCost() {
 		return getAbonementPrice() + getInternetPrice();
+	}
+
+	@Override
+	public int compareTo(MobileTariff o) {
+		return Double.compare(this.getAbonementPrice(), o.getAbonementPrice());
 	}
 }

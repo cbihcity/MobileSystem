@@ -18,6 +18,11 @@ public final class Initialization implements Constants {
 	private static File file2;
 	private static Map<Integer, MobileTariff> mapOfTariffs = new HashMap<Integer, MobileTariff>();
 	
+	/**
+	 * Closed constructor
+	 */
+	private Initialization() {
+	}
 
 	// public static void main(String[] args) {
 	// try {
@@ -86,17 +91,19 @@ public final class Initialization implements Constants {
 		Operations.createRandomSubscribers(file, file2, mapOfTariffs);
 		
 		//print all tariffs
-		//Operations.printTariffs(mapOfTariffs);
+		Operations.printTariffs(mapOfTariffs);
 		
-//		for (MobileTariff tariff : mapOfTariffs.values()) {
-//			System.out.println(tariff.getTariffName()+";");
-//			tariff.printClients();
-//			System.out.println("==========================================");
-//		}
+		System.out.println("==========================================");
+		
+		for (MobileTariff tariff : mapOfTariffs.values()) {
+			System.out.println(tariff.getTariffName()+":");
+			tariff.printClients();
+			System.out.println("==========================================");
+		}
 		
 		Operations.getClientsNumber(mapOfTariffs);
+		
+		Operations.sortServicesBasedOnAbonementPrice(mapOfTariffs);
 
 	}
-
-	
 }

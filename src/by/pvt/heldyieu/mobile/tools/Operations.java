@@ -30,8 +30,9 @@ private static List<String> surnamesClients = new ArrayList<String>();
 	 * 
 	 * @param file - input file
 	 * @param list - list of tariffs for returning
+	 * @throws FileNotFoundException 
 	 */
-	public static void readFile(List<String> list, File file) {
+	public static void readFile(List<String> list, File file) throws FileNotFoundException {
 		try (Scanner sc = new Scanner(new BufferedReader(new FileReader(file)))) {
 			while (sc.hasNext()) {
 				list.add(sc.nextLine());
@@ -41,6 +42,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 					+ " Проверьте наличие этого файла в директории "
 					+ INPUT_FOLDER);
 			Logger.log(e);
+			throw e;
 		}
 	}
 
@@ -81,7 +83,12 @@ private static List<String> surnamesClients = new ArrayList<String>();
 	 */
 	public static void createTariffs(File file, String typeTariff) {
 		List<String> strings = new ArrayList<>();
-		Operations.readFile(strings, file);
+		try {
+			Operations.readFile(strings, file);
+		} catch (FileNotFoundException e) {
+			System.out
+			.println("При создании объекта "+typeTariff.replaceAll(".txt","")+" возникла ошибка. Подробное описание ошибки в файле log.txt");
+		}
 		Iterator<String> itStrings = strings.iterator();
 		while (itStrings.hasNext()) {
 			List<String> tariffTokens = Operations.stringToTokens(itStrings
@@ -200,8 +207,14 @@ private static List<String> surnamesClients = new ArrayList<String>();
 	private static void createListsNamesAndSurnames(File file, File file2) {
 		List<String> tempNames = new ArrayList<>();
 		List<String> tempClients = new ArrayList<>();
-		Operations.readFile(tempNames, file);
-		Operations.readFile(tempClients, file2);
+		
+		try {
+			Operations.readFile(tempNames, file);
+			Operations.readFile(tempClients, file2);
+		} catch (FileNotFoundException e) {
+			System.out
+			.println("При создании списка абонентов возникла ошибка. Подробное описание ошибки в файле log.txt");
+		}
 		
 			Iterator<String> namesTokens = tempNames.iterator();
 			Iterator<String> surnameTokens = tempClients.iterator();
@@ -229,8 +242,6 @@ private static List<String> surnamesClients = new ArrayList<String>();
 			}
 		} catch (IllegalArgumentException e) {
 			Logger.log(e);
-			System.out.println("При создании списка абонентов для "	+ tariff.getTariffName()
-							+ " возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
 	
@@ -239,7 +250,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			clientsNumber += tariff.getClientsNumbers();
 		}
-		System.out.println("Общая численность клиентов - "+clientsNumber);
+		System.out.println("Общая численность клиентов : "+clientsNumber);
 	}
 	
 	/**

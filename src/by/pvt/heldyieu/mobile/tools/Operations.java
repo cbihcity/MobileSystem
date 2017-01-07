@@ -129,7 +129,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		} catch (InvalidValueException | IllegalArgumentException
 				| NoSuchElementException e) {
 			Logger.log(e);
-			System.err
+			System.out
 					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
@@ -149,7 +149,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		} catch (InvalidValueException | IllegalArgumentException
 				| NoSuchElementException e) {
 			Logger.log(e);
-			System.err
+			System.out
 					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
@@ -169,7 +169,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		} catch (InvalidValueException | IllegalArgumentException
 				| NoSuchElementException e) {
 			Logger.log(e);
-			System.err
+			System.out
 					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
@@ -189,7 +189,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		} catch (InvalidValueException | IllegalArgumentException
 				| NoSuchElementException e) {
 			Logger.log(e);
-			System.err
+			System.out
 					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
@@ -206,7 +206,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		List<String> tempClients = new ArrayList<>();
 		Operations.readFile(tempNames, file);
 		Operations.readFile(tempClients, file2);
-		if (tempNames.size()>0 && tempClients.size()>0) {
+		
 			Iterator<String> namesTokens = tempNames.iterator();
 			Iterator<String> surnameTokens = tempClients.iterator();
 			while (namesTokens.hasNext()) {
@@ -215,10 +215,6 @@ private static List<String> surnamesClients = new ArrayList<String>();
 			while (surnameTokens.hasNext()) {
 				surnamesClients = Operations.stringToTokens(surnameTokens.next());
 			}
-		} else {
-			System.out.println("Подробное описание ошибки в файле log.txt");
-			System.exit(1);
-		}
 	}
 	
 	private static void subscribeForTariff(MobileTariff tariff) {
@@ -228,11 +224,17 @@ private static List<String> surnamesClients = new ArrayList<String>();
 		String [] arraySurnames = new String[surnamesClients.size()];
 		arraySurnames = surnamesClients.toArray(arraySurnames);
 		int randomNumberClients = randomGenerator.nextInt(50);
-		for (int i = 0; i < randomNumberClients; i++) {
-			tariff.subscribe(
-					"MP" + (randomGenerator.nextInt(PASSPORT_VALUE_FOR_RANDOM)+1000000),
-					arraySurnames[randomGenerator.nextInt(arraySurnames.length)],
-					arrayNames[randomGenerator.nextInt(arrayNames.length)]);
+		try {
+			for (int i = 0; i < randomNumberClients; i++) {
+				tariff.subscribe(
+						"MP" + (randomGenerator.nextInt(PASSPORT_VALUE_FOR_RANDOM) + 1000000),
+						arraySurnames[randomGenerator.nextInt(arraySurnames.length)],
+						arrayNames[randomGenerator.nextInt(arrayNames.length)]);
+			}
+		} catch (IllegalArgumentException e) {
+			Logger.log(e);
+			System.out.println("При создании списка абонентов для "	+ tariff.getTariffName()
+							+ " возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
 }

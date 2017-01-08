@@ -41,11 +41,10 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 		if (abonementPrice < 0) {
 			throw new InvalidValueException(
 					"Абонементская плата не может быть < 0. Объект класса "
-							+ this.getClass().getName() + " не создан.");
+							+ this.getClass().getName() + " не создан.", abonementPrice);
 		} else {
 			this.abonementPrice = abonementPrice;
 		}
-		addTariffInstance(this);
 	}
 
 	/*
@@ -133,7 +132,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 		return clients;
 	}
 
-	private final void addTariffInstance(final MobileTariff mobileTariff) {
+	protected static final void addTariffInstance(final MobileTariff mobileTariff) {
 		TARIFFS.put(++count, mobileTariff);
 	}
 

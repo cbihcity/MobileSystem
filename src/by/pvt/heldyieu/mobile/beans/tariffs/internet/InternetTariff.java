@@ -19,7 +19,7 @@ public abstract class InternetTariff extends MobileTariff {
 		if (internetPrice < 0) {
 			throw new InvalidValueException(
 					"Стоимость интернета не может быть < 0. Объект класса "
-							+ this.getClass().getName() + " не создан.");
+							+ this.getClass().getName() + " не создан.", internetPrice);
 		} else {
 			this.internetPrice = internetPrice;
 		}

@@ -130,7 +130,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта LimitedCallsTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
 
@@ -151,7 +151,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта LimitedInternetTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
 
@@ -172,7 +172,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта UnlimitedCallsTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
 
@@ -193,7 +193,7 @@ private static List<String> surnamesClients = new ArrayList<String>();
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта UnlimitedInternetTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 	}
 

@@ -19,7 +19,7 @@ public abstract class CallsTariff extends MobileTariff {
 		if (callsPrice < 0) {
 			throw new InvalidValueException(
 					"Стоимость звонков не может быть < 0. Объект класса "
-							+ this.getClass().getName() + " не создан.");
+							+ this.getClass().getName() + " не создан.", callsPrice);
 		} else {
 			this.callsPrice = callsPrice;
 		}

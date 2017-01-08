@@ -33,9 +33,10 @@ public class LimitedInternetTariff extends InternetTariff {
 		if (freeGb < 0) {
 			throw new InvalidValueException(
 					"Количество свободного интернет траффика не может быть < 0. Объект класса "
-							+ this.getClass().getName() + " не создан.");
+							+ this.getClass().getName() + " не создан.", freeGb);
 		} else {
 			this.freeGb = freeGb;
+			MobileTariff.addTariffInstance(this);
 		}
 	}
 	

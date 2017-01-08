@@ -34,9 +34,10 @@ public class LimitedCallsTariff extends CallsTariff {
 		if (freeMinutes < 0) {
 			throw new InvalidValueException(
 					"Количество свободных минут не может быть < 0. Объект класса "
-							+ this.getClass().getName() + " не создан.");
+							+ this.getClass().getName() + " не создан.", callsPrice);
 		} else {
 			this.freeMinutes = freeMinutes;
+			MobileTariff.addTariffInstance(this);
 		}
 	}
 	

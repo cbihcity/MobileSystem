@@ -102,7 +102,7 @@ public class UnlimitedCallsTariff extends CallsTariff {
 	 */
 	@Override
 	public String toString() {
-		return super.toString()+"; Количество свободных минут - "+getFreeMinutes()+"; Суммарная стоимость - " + getCost();
+		return super.toString()+"; Количество бесплатных минут - "+getFreeMinutes()+"; Суммарная стоимость - " + getCost();
 	}
 
 	public void subscribe(String passport, String surname, String firstname) {

@@ -83,14 +83,15 @@ public final class Initialization implements Constants {
 							+ "1. Клиент\n"
 							+ "2. Менеджер\n"
 							+ "0. Выход\n"
-							+ DELIMITER);
+							+ DELIMITER+"\n");
 			switch (Operations.inputnumber()) {
 			case 1:
+				main:
 				while (true) {
 					System.out.println("1. Показать список доступных тарифов\n"
 							+ "2. Поиск тарифов соответствующему заданному диапозону параметров\n"
 							+ "3. Подключится к указанному тарифу\n"
-							+ "0. Выход\n"
+							+ "0. Выход к выбору пользователя\n"
 							+ DELIMITER);
 					switch (Operations.inputnumber()) {
 					case 1:
@@ -98,32 +99,45 @@ public final class Initialization implements Constants {
 						break;
 						
 					case 2:
+						out:
 						while (true) {
 							System.out.println("1. Поиск по абоненсткой плате и общей стоимости тарифа\n"
 									+ "2. Поиск по стоимости звонков и количеству свободных минут\n"
 									+ "3. Поиск по стоимости интернета и количеству интернет-трафика\n"
-									+ "0. Выход\n"
+									+ "0. Выход к выбору пользователя\n"
 									+ DELIMITER);
 							switch (Operations.inputnumber()) {
+							
 							case SEARCH_BY_ABONPRICE_AND_OVERALL_COST:
-								Operations.findSuitableTariff(mapOfTariffs, SEARCH_BY_ABONPRICE_AND_OVERALL_COST);
-								break;
+								System.out.println("Введите стоимость абонентской платы, которая не должна превышать:");
+								double abonprice = (double) Operations.inputnumber();
+								System.out.println("Введите общую стоимость тарифного плана, которая не должна превышать:");
+								double cost = (double) Operations.inputnumber();
+								Operations.findSuitableTariff(mapOfTariffs, abonprice, cost, SEARCH_BY_ABONPRICE_AND_OVERALL_COST);
+								break out;
 							
-							case 2:
+							case SEARCH_BY_CALL_COST_AND_FREE_MINUTES:
+								System.out.println("Введите стоимость звонков, которая не должна превышать:");
+								double calls = (double) Operations.inputnumber();
+								System.out.println("Введите количество бесплатных минут, которое не должно превышать:");
+								double minutes = (double) Operations.inputnumber();
+								Operations.findSuitableTariff(mapOfTariffs, calls, minutes, SEARCH_BY_CALL_COST_AND_FREE_MINUTES);
+								break out;
 								
-								break;
-								
-							case 3:
-							
-								break;
+							case SEARCH_BY_INTERNET_COST_AND_FREE_GB:
+								System.out.println("Введите стоимость интернета, которая не должна превышать:");
+								double priceInternet = (double) Operations.inputnumber();
+								System.out.println("Введите количество интернет трафика, которое не должно превышать:");
+								double freeGb = (double) Operations.inputnumber();
+								Operations.findSuitableTariff(mapOfTariffs, priceInternet, freeGb, SEARCH_BY_INTERNET_COST_AND_FREE_GB);
+								break out;
 
 							case 0:
-								break;
+								break main;
 								
 							default:
 								System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
 							}
-							break;
 						}
 						break;
 						
@@ -131,12 +145,11 @@ public final class Initialization implements Constants {
 						break;
 						
 					case 0:
-						break;
+						break main;
 						
 					default:
 						System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
 					}
-					break;
 				}
 				break;
 				
@@ -144,7 +157,8 @@ public final class Initialization implements Constants {
 				break;
 				
 			case 0:
-				break;
+				System.out.println("Работа завершена.\n"+DELIMITER);
+				System.exit(0);
 
 			default:
 				System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);

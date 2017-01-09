@@ -87,7 +87,7 @@ public class LimitedInternetTariff extends InternetTariff {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "; Количество свободного интернет траффика - "+getFreeGb()+"; Суммарная стоимость - " + getCost();
+		return super.toString() + "; Количество бесплатного интернет траффика - "+getFreeGb()+"; Суммарная стоимость - " + getCost();
 	}
 	
 	public void printClients() {

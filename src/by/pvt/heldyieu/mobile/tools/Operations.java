@@ -15,7 +15,7 @@ import by.pvt.heldyieu.mobile.beans.tariffs.internet.UnlimitedInternetTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 public class Operations implements Constants {
-	public static Scanner input = new Scanner(System.in, "utf-8");
+	private static Scanner input = new Scanner(System.in, "utf-8");
 	private static List<String> namesClients = new ArrayList<String>();
 	private static List<String> surnamesClients = new ArrayList<String>();
 	
@@ -62,44 +62,22 @@ public class Operations implements Constants {
 	}
 	
 	public static int inputnumber() {
-//		int choice = 0;
-//		while (true) {
-//			try {
-//				input = new Scanner(System.in, "utf-8");
-//				choice = input.nextInt();
-//				if (choice >= 0) {
-//					input.close();
-//					break;
-//				} else {
-//					System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
-//				}
-//			} catch (InputMismatchException e) {
-//				System.out.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
-//				Logger.log(e);
-//			} 
-//		}
-//		return choice;
-		int number = -1;
-		while(number < 0){
+		int choice = 0;
+		while (true) {
 			try {
-				input = new Scanner(System.in);
-				number = input.nextInt();
-				if(number >= 0){
-					return number;
+				input = new Scanner(System.in, "utf-8");
+				choice = input.nextInt();
+				if (choice >= 0) {
+					break;
+				} else {
+					System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
 				}
-				else{
-					System.out.println("Параметр не может быть отрицательным. Повторите ввод...");
-					continue;
-				}
-				
-			} 
-			catch (InputMismatchException e) {
-				System.out.println("Неверный формат. Повторите ввод...");
+			} catch (InputMismatchException e) {
+				System.out.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
 				Logger.log(e);
-				continue;
 			} 
 		}
-		return 0;
+		return choice;
 	}
 
 	/**
@@ -114,6 +92,7 @@ public class Operations implements Constants {
 			MobileTariff temp = it.next().getValue();
 			System.out.println(temp.toString());
 		}
+		System.out.println(DELIMITER);
 	}
 	
 	/**
@@ -327,18 +306,40 @@ public class Operations implements Constants {
 	}
 
 	public static void findSuitableTariff(
-			Map<Integer, MobileTariff> mapOfTariffs, int typeOfSearch) {
+			Map<Integer, MobileTariff> mapOfTariffs, double parameter1, double parameter2, int typeOfSearch) {
 		switch (typeOfSearch) {
 		case SEARCH_BY_ABONPRICE_AND_OVERALL_COST:
-			System.out.println("Введите стоимость абонентской платы, которая не должна превышать:");
-			double abonprice = (double)Operations.inputnumber();
-			System.out.println("Введите общую стоимость тарифного плана, которая не должна превышать:");
-			double cost = (double)Operations.inputnumber();
-			mapOfTariffs.forEach((key,value) -> {
-				if(value.getAbonementPrice()<=abonprice && value.getCost()<=cost){
-					System.out.println(key+" - "+value.toString());
+			mapOfTariffs.forEach((key, value) -> {
+				if (value.getAbonementPrice() <= parameter1
+						&& value.getCost() <= parameter2) {
+					System.out.println("id="+key + " - " + value.toString().substring(27));
 				}
-				});
+			});
+			System.out.println(DELIMITER);
+			break;
+			
+		case SEARCH_BY_CALL_COST_AND_FREE_MINUTES:
+			mapOfTariffs.forEach((key, value) -> {
+				if (value instanceof LimitedCallsTariff) {
+					if (((LimitedCallsTariff)value).getcallsPrice()<=parameter1 && 
+							((LimitedCallsTariff)value).getFreeMinutes()<=parameter2){
+						System.out.println("id="+key + " - " + value.toString().substring(27));
+					}
+				}
+			});
+			System.out.println(DELIMITER);
+			break;
+			
+		case SEARCH_BY_INTERNET_COST_AND_FREE_GB:
+			mapOfTariffs.forEach((key, value) -> {
+				if (value instanceof LimitedInternetTariff) {
+					if (((LimitedInternetTariff)value).getInternetPrice()<=parameter1 && 
+							((LimitedInternetTariff)value).getFreeGb()<=parameter2){
+						System.out.println("id="+key + " - " + value.toString().substring(27));
+					}
+				}
+			});
+			System.out.println(DELIMITER);
 			break;
 
 		default:

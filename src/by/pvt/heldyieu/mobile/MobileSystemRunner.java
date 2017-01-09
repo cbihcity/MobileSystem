@@ -19,6 +19,7 @@ public class MobileSystemRunner {
 	 */
 	public static void main(String[] args) {
 		Initialization.initialize();
+		Initialization.menu();
 	}
 
 }

@@ -6,6 +6,7 @@ package by.pvt.heldyieu.mobile.tools;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 
@@ -23,40 +24,6 @@ public final class Initialization implements Constants {
 	 */
 	private Initialization() {
 	}
-
-	// public static void main(String[] args) {
-	// try {
-	// new LimitedInternetTariff("Лимитируемые интернет", 30.5, 4.5);
-	// new UnlimitedInternetTariff("Нелимитируемый интернет", 41.5, 5.6);
-	// new LimitedCallsTariff("Лимитируемые звонки", 19.5, 2.5);
-	// new UnlimitedCallsTariff("Нелимитируемые звонки", 16.5, 5.6);
-	// } catch (InvalidValueException e) {
-	// // TODO Auto-generated catch block
-	// System.out.println(e.getMessage());
-	// }
-	// MobileTariff[] tariffs = MobileTariff.getTariffs();
-	// int sum=0;
-	// Random rand = new Random();
-	// for (int i = 0; i < tariffs.length; i++) {
-	// tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Толя",
-	// "Толивич");
-	// tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Коля",
-	// "Коливоич");
-	// tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Валера",
-	// "Носовеов");
-	// tariffs[i].subscribe("MP"+(rand.nextInt(8999999)+1000000), "Катя",
-	// "Таня");
-	// sum+=tariffs[i].getClientsNumbers();
-	// System.out.println(tariffs[i].getTariffName()+":");
-	// tariffs[i].printClients();
-	// System.out.println(tariffs[i].toString());
-	// System.out.println("=============================================");
-	// }
-	//
-	// System.out.println(sum);
-	// System.out.println(MobileTariff.getAbonementPriceSort().toString());
-	// MobileTariff.getDesireTariff(tariffs, 25).forEach(System.out::println);;
-	//
 	// Manager manager = new Manager("Karl", "Karlovich",new
 	// GregorianCalendar(1989,11,23),Category.TOPLEVEL);
 	// System.out.println(manager.toString());
@@ -91,19 +58,97 @@ public final class Initialization implements Constants {
 		Operations.createRandomSubscribers(file, file2, mapOfTariffs);
 		
 		//print all tariffs
-		Operations.printTariffs(mapOfTariffs);
+//		Operations.printTariffs(mapOfTariffs);
+//		
+//		System.out.println("==========================================");
+//		
+//		for (MobileTariff tariff : mapOfTariffs.values()) {
+//			System.out.println(tariff.getTariffName()+":");
+//			tariff.printClients();
+//			System.out.println("==========================================");
+//		}
+//		
+//		Operations.getClientsNumber(mapOfTariffs);
+//		
+//		Operations.sortServicesBasedOnAbonementPrice(mapOfTariffs);
 		
-		System.out.println("==========================================");
+		//Operations.findSuitableTariff(mapOfTariffs, SEARCH_BY_ABONPRICE_AND_OVERALL_COST);
 		
-		for (MobileTariff tariff : mapOfTariffs.values()) {
-			System.out.println(tariff.getTariffName()+":");
-			tariff.printClients();
-			System.out.println("==========================================");
-		}
-		
-		Operations.getClientsNumber(mapOfTariffs);
-		
-		Operations.sortServicesBasedOnAbonementPrice(mapOfTariffs);
 
+	}
+
+	public static void menu() {
+		while (true) {
+			System.out.println("Выберите пользователя:\n"
+							+ "1. Клиент\n"
+							+ "2. Менеджер\n"
+							+ "0. Выход\n"
+							+ DELIMITER);
+			switch (Operations.inputnumber()) {
+			case 1:
+				while (true) {
+					System.out.println("1. Показать список доступных тарифов\n"
+							+ "2. Поиск тарифов соответствующему заданному диапозону параметров\n"
+							+ "3. Подключится к указанному тарифу\n"
+							+ "0. Выход\n"
+							+ DELIMITER);
+					switch (Operations.inputnumber()) {
+					case 1:
+						Operations.printTariffs(mapOfTariffs);
+						break;
+						
+					case 2:
+						while (true) {
+							System.out.println("1. Поиск по абоненсткой плате и общей стоимости тарифа\n"
+									+ "2. Поиск по стоимости звонков и количеству свободных минут\n"
+									+ "3. Поиск по стоимости интернета и количеству интернет-трафика\n"
+									+ "0. Выход\n"
+									+ DELIMITER);
+							switch (Operations.inputnumber()) {
+							case SEARCH_BY_ABONPRICE_AND_OVERALL_COST:
+								Operations.findSuitableTariff(mapOfTariffs, SEARCH_BY_ABONPRICE_AND_OVERALL_COST);
+								break;
+							
+							case 2:
+								
+								break;
+								
+							case 3:
+							
+								break;
+
+							case 0:
+								break;
+								
+							default:
+								System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
+							}
+							break;
+						}
+						break;
+						
+					case 3:
+						break;
+						
+					case 0:
+						break;
+						
+					default:
+						System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
+					}
+					break;
+				}
+				break;
+				
+			case 2:
+				break;
+				
+			case 0:
+				break;
+
+			default:
+				System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
+			}
+		}
 	}
 }

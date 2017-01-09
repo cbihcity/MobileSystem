@@ -10,5 +10,11 @@ public interface Constants {
 	String UNLIMITED_INERNET_TARIFF = "UnlimitedInternetTariff.txt";
 	String CLIENTS_FILE_NAMES = "ClientsNames.txt";
 	String CLIENTS_FILE_SURNAMES = "ClientsSurname.txt";
+	String INCORRECT_INPUT_VALUE_FOR_SCANNER = "Неправильно введен номер пункта меню. Повторите ввод";
+	String MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER = "Неверный тип ввходных данных. Повторите ввод";
+	String DELIMITER = "------------------------------------";
 	int PASSPORT_VALUE_FOR_RANDOM = 8999999;
+	int SEARCH_BY_ABONPRICE_AND_OVERALL_COST = 1;
+	int SEARCH_BY_CALL_COST_AND_FREE_MINUTES = 2;
+	int SEARCH_BY_INTERNET_COST_AND_FREE_GB = 3;
 }

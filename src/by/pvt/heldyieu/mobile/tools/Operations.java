@@ -15,9 +15,9 @@ import by.pvt.heldyieu.mobile.beans.tariffs.internet.UnlimitedInternetTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 public class Operations implements Constants {
-//private static Scanner input = new Scanner(System.in,"utf-8");
-private static List<String> namesClients = new ArrayList<String>();
-private static List<String> surnamesClients = new ArrayList<String>();
+	public static Scanner input = new Scanner(System.in, "utf-8");
+	private static List<String> namesClients = new ArrayList<String>();
+	private static List<String> surnamesClients = new ArrayList<String>();
 	
 	/**
 	 * Closed constructor <b>{@code Operations}</b>
@@ -59,6 +59,47 @@ private static List<String> surnamesClients = new ArrayList<String>();
 			tokens.add(st.nextToken());
 		}
 		return tokens;
+	}
+	
+	public static int inputnumber() {
+//		int choice = 0;
+//		while (true) {
+//			try {
+//				input = new Scanner(System.in, "utf-8");
+//				choice = input.nextInt();
+//				if (choice >= 0) {
+//					input.close();
+//					break;
+//				} else {
+//					System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
+//				}
+//			} catch (InputMismatchException e) {
+//				System.out.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
+//				Logger.log(e);
+//			} 
+//		}
+//		return choice;
+		int number = -1;
+		while(number < 0){
+			try {
+				input = new Scanner(System.in);
+				number = input.nextInt();
+				if(number >= 0){
+					return number;
+				}
+				else{
+					System.out.println("Параметр не может быть отрицательным. Повторите ввод...");
+					continue;
+				}
+				
+			} 
+			catch (InputMismatchException e) {
+				System.out.println("Неверный формат. Повторите ввод...");
+				Logger.log(e);
+				continue;
+			} 
+		}
+		return 0;
 	}
 
 	/**
@@ -284,5 +325,24 @@ private static List<String> surnamesClients = new ArrayList<String>();
 			}
 		}
 	}
-	
+
+	public static void findSuitableTariff(
+			Map<Integer, MobileTariff> mapOfTariffs, int typeOfSearch) {
+		switch (typeOfSearch) {
+		case SEARCH_BY_ABONPRICE_AND_OVERALL_COST:
+			System.out.println("Введите стоимость абонентской платы, которая не должна превышать:");
+			double abonprice = (double)Operations.inputnumber();
+			System.out.println("Введите общую стоимость тарифного плана, которая не должна превышать:");
+			double cost = (double)Operations.inputnumber();
+			mapOfTariffs.forEach((key,value) -> {
+				if(value.getAbonementPrice()<=abonprice && value.getCost()<=cost){
+					System.out.println(key+" - "+value.toString());
+				}
+				});
+			break;
+
+		default:
+			System.out.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
+		}
+	}
 }

@@ -11,10 +11,10 @@ import java.util.Comparator;
  * @author i.heldyieu 
  * @version 1.0
  */
-public class ComparatorManager implements Comparator<MobileTariff>, Serializable{
+public class MobileTariffComparator implements Comparator<MobileTariff>, Serializable{
 	private static final long serialVersionUID = 386056766694741488L;
 
-	public ComparatorManager() {
+	public MobileTariffComparator() {
 	}
 
 	/* (non-Javadoc)

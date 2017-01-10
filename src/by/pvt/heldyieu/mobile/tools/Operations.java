@@ -53,11 +53,11 @@ public class Operations implements Constants {
 	 * @param str - string
 	 * @return list of tokens
 	 */
-	public static List<String> stringToTokens(String str) {
+	public static List<String> stringParser(String str) {
 		List<String> tokens = new ArrayList<>();
-		StringTokenizer st = new StringTokenizer(str, ";");
-		while (st.hasMoreTokens()) {
-			tokens.add(st.nextToken());
+		String [] temp = str.split(";");
+		for (String string : temp) {
+			tokens.add(string);
 		}
 		return tokens;
 	}
@@ -107,12 +107,12 @@ public class Operations implements Constants {
 		try {
 			Operations.readFile(strings, file);
 		} catch (FileNotFoundException e) {
-			System.out
-			.println("При создании объекта "+typeTariff.replaceAll(".txt","")+" возникла ошибка. Подробное описание ошибки в файле log.txt");
+			System.out.println("При создании объекта "+typeTariff.replaceAll(".txt","")+" возникла ошибка."
+					+ " Подробное описание ошибки в файле log.txt");
 		}
 		Iterator<String> itStrings = strings.iterator();
 		while (itStrings.hasNext()) {
-			List<String> tariffTokens = Operations.stringToTokens(itStrings
+			List<String> tariffTokens = Operations.stringParser(itStrings
 					.next());
 			Iterator<String> itTokens = tariffTokens.iterator();
 				switch (typeTariff) {
@@ -240,10 +240,10 @@ public class Operations implements Constants {
 			Iterator<String> namesTokens = tempNames.iterator();
 			Iterator<String> surnameTokens = tempClients.iterator();
 			while (namesTokens.hasNext()) {
-				namesClients = Operations.stringToTokens(namesTokens.next());
+				namesClients = Operations.stringParser(namesTokens.next());
 				}
 			while (surnameTokens.hasNext()) {
-				surnamesClients = Operations.stringToTokens(surnameTokens.next());
+				surnamesClients = Operations.stringParser(surnameTokens.next());
 			}
 	}
 	
@@ -298,8 +298,8 @@ public class Operations implements Constants {
 	 */
 	public static void sortServicesBasedOnAbonementPrice(Map<Integer, MobileTariff> mapOfTariffs){
 		List<MobileTariff> list = new ArrayList<>(mapOfTariffs.values());
-		Collections.sort(list, new ComparatorManager());
-		reportAfterSort(list, mapOfTariffs);
+		Collections.sort(list, new MobileTariffComparator());
+		Operations.reportAfterSort(list, mapOfTariffs);
 	}
 	
 	/**

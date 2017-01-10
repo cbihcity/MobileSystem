@@ -274,7 +274,7 @@ public class Operations implements Constants {
 	
 	private static String getRandomDate() {
 		Random rand = new Random();
-		int year = rand.nextInt(2)+2016;
+		int year = rand.nextInt(2)+2015;
 		int month = rand.nextInt(12);
 		int day = rand.nextInt(32);
 		GregorianCalendar calendar = new GregorianCalendar(year, month, day);

@@ -94,8 +94,8 @@ public class LimitedInternetTariff extends InternetTariff {
 		super.printClients();
 	}
 
-	public void subscribe(String passport, String surname, String firstname) {
-		clients.put(passport, surname + " " + firstname);
+	public void subscribe(String passport, StringBuilder dateOfSubscribe) {
+		clients.put(passport, dateOfSubscribe);
 	}
 
 	public void unsubscribe(String passport) {

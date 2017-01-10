@@ -8,5 +8,5 @@ package by.pvt.heldyieu.mobile.beans.interfaces;
  *
  */
 public interface Subscribable {
-	void subscribe(String passport, String name, String surname);
+	void subscribe(String passport, StringBuilder dateOfSubscribe);
 }

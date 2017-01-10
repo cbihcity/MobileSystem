@@ -17,7 +17,7 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable, Comparable<MobileTariff> {
 	private double abonementPrice; // абонентская плата
 	private String tariffName; // название тарифного плана
-	protected Map<String, String> clients = new HashMap<String, String>();
+	protected Map<String, StringBuilder> clients = new HashMap<String, StringBuilder>();
 	private static int count = 0;
 	private static final Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
 
@@ -128,7 +128,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	/**
 	 * @return the clients
 	 */
-	public Map<String, String> getClients() {
+	public Map<String, StringBuilder> getClients() {
 		return clients;
 	}
 

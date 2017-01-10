@@ -62,11 +62,11 @@ public final class Initialization implements Constants {
 //		
 //		System.out.println("==========================================");
 //		
-//		for (MobileTariff tariff : mapOfTariffs.values()) {
-//			System.out.println(tariff.getTariffName()+":");
-//			tariff.printClients();
-//			System.out.println("==========================================");
-//		}
+		for (MobileTariff tariff : mapOfTariffs.values()) {
+			System.out.println(tariff.getTariffName()+":");
+			tariff.printClients();
+			System.out.println(DELIMITER);
+		}
 //		
 //		Operations.getClientsNumber(mapOfTariffs);
 //		

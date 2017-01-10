@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
@@ -248,6 +249,7 @@ public class Operations implements Constants {
 	
 	private static void subscribeForTariff(MobileTariff tariff) {
 		Random randomGenerator = new Random();
+		StringBuilder dateOfSubscribe;
 		String [] arrayNames = new String[namesClients.size()];
 		arrayNames = namesClients.toArray(arrayNames);
 		String [] arraySurnames = new String[surnamesClients.size()];
@@ -255,16 +257,32 @@ public class Operations implements Constants {
 		int randomNumberClients = randomGenerator.nextInt(50);
 		try {
 			for (int i = 0; i < randomNumberClients; i++) {
+				dateOfSubscribe = new StringBuilder();
+				String date = Operations.getRandomDate();
 				tariff.subscribe(
 						"MP" + (randomGenerator.nextInt(PASSPORT_VALUE_FOR_RANDOM) + 1000000),
-						arraySurnames[randomGenerator.nextInt(arraySurnames.length)],
-						arrayNames[randomGenerator.nextInt(arrayNames.length)]);
+						dateOfSubscribe.append(arraySurnames[randomGenerator.nextInt(arraySurnames.length)])
+							.append(" ")
+							.append(arrayNames[randomGenerator.nextInt(arrayNames.length)])
+							.append(" ")
+							.append(date));
 			}
 		} catch (IllegalArgumentException e) {
 			Logger.log(e);
 		}
 	}
 	
+	private static String getRandomDate() {
+		Random rand = new Random();
+		int year = rand.nextInt(2)+2016;
+		int month = rand.nextInt(12);
+		int day = rand.nextInt(32);
+		GregorianCalendar calendar = new GregorianCalendar(year, month, day);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String formatted = format.format(calendar.getTime());
+		return formatted;
+	}
+
 	public static void getClientsNumber(Map<Integer, MobileTariff> mapOfTariffs){
 		int clientsNumber = 0; 
 		for (MobileTariff tariff : mapOfTariffs.values()) {

@@ -11,6 +11,10 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public abstract class InternetTariff extends MobileTariff {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1679423840685690632L;
 	private double internetPrice; // стоимость интернета
 
 	public InternetTariff(String tariffname, double abonementPrice,

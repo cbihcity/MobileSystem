@@ -11,6 +11,10 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public abstract class CallsTariff extends MobileTariff {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -55385913488326049L;
 	private double callsPrice; // стоимость звонков
 
 	public CallsTariff(String tariffname, double abonementPrice,

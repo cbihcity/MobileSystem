@@ -11,6 +11,10 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class LimitedInternetTariff extends InternetTariff {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2219850263435567609L;
 	private double freeGb; // size of free internet traffic
 	
 	/**

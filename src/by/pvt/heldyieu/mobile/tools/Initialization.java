@@ -67,6 +67,11 @@ public final class Initialization implements Constants {
 			tariff.printClients();
 			System.out.println(DELIMITER);
 		}
+		File qwe = new File(OUTPUT_FOLDER+"test");
+		Operations.report(mapOfTariffs.get(1), qwe);
+		
+		MobileTariff qwer = Operations.readFile(qwe);
+		System.out.println(qwer.toString());
 //		
 //		Operations.getClientsNumber(mapOfTariffs);
 //		

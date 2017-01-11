@@ -3,6 +3,7 @@
  */
 package by.pvt.heldyieu.mobile.beans.tariffs;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,12 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 /**
  * @author i.heldyieu version 1.0
  */
-public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable, Comparable<MobileTariff> {
+public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable, Comparable<MobileTariff>, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4444143939196197302L;
 	private double abonementPrice; // абонентская плата
 	private String tariffName; // название тарифного плана
 	protected Map<String, StringBuilder> clients = new HashMap<String, StringBuilder>();

@@ -1,9 +1,6 @@
 package by.pvt.heldyieu.mobile.tools;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -364,4 +361,36 @@ public class Operations implements Constants {
 			System.out.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
 		}
 	}
+	
+	public static void report(MobileTariff tariff, File file){
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
+			out.writeObject(tariff);
+			System.out.println("Запись успешно произведена в файл \"" + file.getName() + "\"");
+			System.out.println(tariff);
+		} 
+		catch (IOException e) {
+			System.out.println("Ошибка записи. Невозможно создать файл \"" + file.getName() + "\"");
+			Logger.log(e);
+		}
+	}
+	
+	public static MobileTariff readFile(File file){
+		MobileTariff fromFile = null;
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
+			fromFile = (MobileTariff) ois.readObject();
+		} 
+		catch (FileNotFoundException e) {
+			System.out.println("Файл не найден..." + file.getName());
+			Logger.log(e);
+		} 
+		catch (IOException e) {
+			Logger.log(e);
+		} 
+		catch (ClassNotFoundException e) {
+			System.out.println("Класс не найден...");
+			Logger.log(e);
+		}
+		return fromFile;
+	}
+	
 }

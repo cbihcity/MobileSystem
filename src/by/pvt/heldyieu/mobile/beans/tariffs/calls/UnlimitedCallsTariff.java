@@ -11,6 +11,10 @@ import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
  *
  */
 public class UnlimitedCallsTariff extends CallsTariff {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5692292755254701218L;
 	private int freeMinutes; //free minutes for this tariff
 	
 	

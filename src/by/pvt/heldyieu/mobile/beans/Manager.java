@@ -3,7 +3,9 @@
  */
 package by.pvt.heldyieu.mobile.beans;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
 import by.pvt.heldyieu.mobile.enums.Category;
 
 /**
@@ -12,7 +14,7 @@ import by.pvt.heldyieu.mobile.enums.Category;
  */
 public class Manager extends Person {
 	private Category category;
-
+	private ArrayList<String> personalClients = new ArrayList<String>(); 
 	/**
 	 * 
 	 */
@@ -42,15 +44,22 @@ public class Manager extends Person {
 		this.category = category;
 	}
 
+	/**
+	 * @return the personalClients
+	 */
+	public ArrayList<String> getPersonalClients() {
+		return personalClients;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	
 	@Override
 	public String toString() {
 		return super.toString()+", Категория - "+category.getCategory();
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -60,6 +69,8 @@ public class Manager extends Person {
 		int result = super.hashCode();
 		result = prime * result
 				+ ((category == null) ? 0 : category.hashCode());
+		result = prime * result
+				+ ((personalClients == null) ? 0 : personalClients.hashCode());
 		return result;
 	}
 
@@ -68,16 +79,31 @@ public class Manager extends Person {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof Manager)) {
 			return false;
+		}
 		Manager other = (Manager) obj;
-		if (category != other.category)
+		if (category != other.category) {
 			return false;
+		}
+		if (personalClients == null) {
+			if (other.personalClients != null) {
+				return false;
+			}
+		} else if (!personalClients.equals(other.personalClients)) {
+			return false;
+		}
 		return true;
+	}
+
+	public void addPersonalClient (String client){
+		personalClients.add(client);
 	}
 
 }

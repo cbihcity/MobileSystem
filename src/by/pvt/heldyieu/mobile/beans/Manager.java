@@ -13,6 +13,10 @@ import by.pvt.heldyieu.mobile.enums.Category;
  *
  */
 public class Manager extends Person {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5130877074572955059L;
 	private Category category;
 	private ArrayList<String> personalClients = new ArrayList<String>(); 
 	/**

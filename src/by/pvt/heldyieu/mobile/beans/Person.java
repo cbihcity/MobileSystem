@@ -3,6 +3,7 @@
  */
 package by.pvt.heldyieu.mobile.beans;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -10,7 +11,11 @@ import java.util.GregorianCalendar;
  * @author i.heldyieu
  *
  */
-public abstract class Person {
+public abstract class Person implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1743332889063998589L;
 	private String firstName;
 	private String lastName;
 	private GregorianCalendar birthday;

@@ -1,6 +1,7 @@
 package by.pvt.heldyieu.mobile.tools;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,9 +32,12 @@ public class Operations implements Constants {
 	 * @throws FileNotFoundException 
 	 */
 	public static void readFile(List<String> list, File file) throws FileNotFoundException {
-		try (Scanner sc = new Scanner(new BufferedReader(new FileReader(file)))) {
-			while (sc.hasNext()) {
-				list.add(sc.nextLine());
+		BufferedReader br = null;
+		String temp = null;
+		try {
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+			while ((temp=br.readLine())!=null) {
+				list.add(temp);
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("Файл не найден..." + file.getName()
@@ -41,6 +45,20 @@ public class Operations implements Constants {
 					+ INPUT_FOLDER);
 			Logger.log(e);
 			throw e;
+		} catch (IOException e) {
+			Logger.log(e);
+			System.out.println("Произошла ошибка ввода-вывода" + file.getName()
+					+ " Подробную информацию смотрите в файле log.txt");
+		}
+		finally {
+			try {
+				if (br!=null) {
+					br.close();
+				}
+			} catch (Exception e){
+				System.err.println("Ошибка закрыти потока ввода : "+e);
+				Logger.log(e);
+			}
 		}
 	}
 
@@ -126,7 +144,7 @@ public class Operations implements Constants {
 					createUnlimitedInternetTariff(itTokens);
 					break;
 				default:
-					break;
+					System.out.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
 				}
 		}
 	}

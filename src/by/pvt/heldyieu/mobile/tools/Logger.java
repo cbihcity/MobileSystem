@@ -5,12 +5,14 @@ package by.pvt.heldyieu.mobile.tools;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 
 
@@ -22,6 +24,7 @@ import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
  */
 public final class Logger implements Constants {
 	public static final String logFileRoot = LOG_FILE_ROOT;
+	private static BufferedWriter writer = null;
 	
 	static {
 		File f = new File(logFileRoot);
@@ -47,15 +50,23 @@ public final class Logger implements Constants {
 		final StringWriter errors = new StringWriter();
 		exception.printStackTrace(new PrintWriter(errors));
 
-		try (PrintWriter printwriter = new PrintWriter(new BufferedWriter(
-				new FileWriter(new File(logFileRoot), true)))) {
-			final SimpleDateFormat sdf = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
-			printwriter.println(sdf.format(Calendar.getInstance().getTime()));
-			printwriter.println(exception.getMessage());
-			printwriter.println(errors.toString());
+		try {
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(LOG_FILE_ROOT, true),"utf-8"));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			writer.write(sdf.format(Calendar.getInstance().getTime()));
+			writer.write(errors.toString()+"\n");
+			writer.close();
 		} catch (IOException e) {
 			Logger.log(e);
+		} finally {
+			try {
+				if (writer!=null) {
+					writer.close();
+				}
+			} catch (Exception e){
+				System.err.println("Ошибка закрыти потока вывода : "+e);
+				Logger.log(e);
+			}
 		}
 	}
 
@@ -65,12 +76,23 @@ public final class Logger implements Constants {
 	 * @param message - string message
 	 */
 	public static void log(final String message) {
-		try(PrintWriter printwriter = new PrintWriter(new BufferedWriter(new FileWriter(new File(logFileRoot), true)))){
+		try {
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(LOG_FILE_ROOT, true),"utf-8"));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			printwriter.println(sdf.format(Calendar.getInstance().getTime()));
-			printwriter.println(message);
+			writer.write(sdf.format(Calendar.getInstance().getTime()));
+			writer.write(message+"\n");
+			writer.close();
 		} catch (IOException e) {
 			Logger.log(e);
+		} finally {
+			try {
+				if (writer!=null) {
+					writer.close();
+				}
+			} catch (Exception e){
+				System.err.println("Ошибка закрыти потока вывода : "+e);
+				Logger.log(e);
+			}
 		}
 	}
 }

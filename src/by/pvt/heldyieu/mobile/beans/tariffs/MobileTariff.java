@@ -25,7 +25,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	private String tariffName; // название тарифного плана
 	protected Map<String, StringBuilder> clients = new HashMap<String, StringBuilder>();
 	private static int count = 0;
-	private static final Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
+	private static Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
 
 	/**
 	 * Creates new entity of the class <b>{@code MobileTariff}</b>

@@ -14,7 +14,10 @@ public abstract class CallsTariff extends MobileTariff {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -55385913488326049L;
+	private static final long serialVersionUID = 5388869734650337223L;
+	/**
+	 * 
+	 */
 	private double callsPrice; // стоимость звонков
 
 	public CallsTariff(String tariffname, double abonementPrice,
@@ -85,5 +88,7 @@ public abstract class CallsTariff extends MobileTariff {
 	public double getcallsPrice() {
 		return callsPrice;
 	}
+	
+	public abstract int getFreeMinutes();
 
 }

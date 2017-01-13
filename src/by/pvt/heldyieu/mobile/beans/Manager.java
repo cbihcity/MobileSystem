@@ -7,16 +7,18 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import by.pvt.heldyieu.mobile.enums.Category;
+import by.pvt.heldyieu.mobile.enums.Gender;
 
 /**
  * @author i.heldyieu
  *
  */
 public class Manager extends Person {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5130877074572955059L;
+	private static final long serialVersionUID = -7203434436755432144L;
 	private Category category;
 	private ArrayList<String> personalClients = new ArrayList<String>(); 
 	/**
@@ -29,8 +31,8 @@ public class Manager extends Person {
 	/**
 	 * @param category
 	 */
-	public Manager(String firstName, String lastName, GregorianCalendar birthday, Category category) {
-		super(firstName, lastName, birthday);
+	public Manager(String firstName, String lastName, Gender gender, GregorianCalendar birthday, Category category) {
+		super(firstName, lastName, gender, birthday);
 		this.category = category;
 	}
 	
@@ -109,5 +111,6 @@ public class Manager extends Person {
 	public void addPersonalClient (String client){
 		personalClients.add(client);
 	}
+	
 
 }

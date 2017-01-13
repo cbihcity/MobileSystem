@@ -7,8 +7,10 @@ import java.util.*;
 
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
+import by.pvt.heldyieu.mobile.beans.tariffs.calls.CallsTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.calls.LimitedCallsTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.calls.UnlimitedCallsTariff;
+import by.pvt.heldyieu.mobile.beans.tariffs.internet.InternetTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.internet.LimitedInternetTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.internet.UnlimitedInternetTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
@@ -77,7 +79,7 @@ public class Operations implements Constants {
 		return tokens;
 	}
 	
-	public static int inputnumber() {
+	public static int inputNumber() {
 		int choice = 0;
 		while (true) {
 			try {
@@ -95,6 +97,11 @@ public class Operations implements Constants {
 		}
 		return choice;
 	}
+	
+	public static String inputString() {
+		input = new Scanner(System.in, "utf-8");	
+		return input.next();
+	}
 
 	/**
 	 * Print all available tariffs at MobileTariff
@@ -105,8 +112,8 @@ public class Operations implements Constants {
 		Set<Map.Entry<Integer, MobileTariff>> set = mapOfTariffs.entrySet();
 		Iterator<Map.Entry<Integer, MobileTariff>> it = set.iterator();
 		while (it.hasNext()) {
-			MobileTariff temp = it.next().getValue();
-			System.out.println(temp.toString());
+			int temp = it.next().getKey();
+			System.out.println("id="+temp + " : " + mapOfTariffs.get(temp).toString());
 		}
 		System.out.println(DELIMITER);
 	}
@@ -287,15 +294,20 @@ public class Operations implements Constants {
 		}
 	}
 	
-	private static String getRandomDate() {
+	public static String getRandomDate() {
 		Random rand = new Random();
 		int year = rand.nextInt(2)+2015;
 		int month = rand.nextInt(12);
 		int day = rand.nextInt(32);
 		GregorianCalendar calendar = new GregorianCalendar(year, month, day);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String formatted = format.format(calendar.getTime());
-		return formatted;
+		return format.format(calendar.getTime());
+	}
+	
+	public static String getDate() {
+		Date date = Calendar.getInstance().getTime();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    return sdf.format(date);
 	}
 
 	public static void getClientsNumber(Map<Integer, MobileTariff> mapOfTariffs){
@@ -322,7 +334,7 @@ public class Operations implements Constants {
 	 * @param list - list of sorted tariffs
 	 * @param mapOfTariffs - list of available tariffs
 	 */
-	public static void reportAfterSort(List<? extends Object> list, Map<Integer, MobileTariff> mapOfTariffs){
+	private static void reportAfterSort(List<? extends Object> list, Map<Integer, MobileTariff> mapOfTariffs){
 		for(Object s : list){
 			if(s instanceof MobileTariff){
 				Set<Map.Entry<Integer, MobileTariff>> set = mapOfTariffs.entrySet(); 
@@ -330,7 +342,7 @@ public class Operations implements Constants {
 				while(it.hasNext()){
 					Map.Entry<Integer, MobileTariff> entry = it.next();
 					if(entry.getValue().equals((MobileTariff)s)){
-						System.out.println(entry.getValue().toString());
+						System.out.println("id=" + entry.getKey() + " - " + entry.getValue().toString());
 						break;
 					}
 				}
@@ -353,9 +365,9 @@ public class Operations implements Constants {
 			
 		case SEARCH_BY_CALL_COST_AND_FREE_MINUTES:
 			mapOfTariffs.forEach((key, value) -> {
-				if (value instanceof LimitedCallsTariff) {
-					if (((LimitedCallsTariff)value).getcallsPrice()<=parameter1 && 
-							((LimitedCallsTariff)value).getFreeMinutes()<=parameter2){
+				if (value instanceof CallsTariff) {
+					if (((CallsTariff)value).getcallsPrice()<=parameter1 && 
+							((CallsTariff)value).getFreeMinutes()<=parameter2){
 						System.out.println("id="+key + " - " + value.toString().substring(27));
 					}
 				}
@@ -365,9 +377,9 @@ public class Operations implements Constants {
 			
 		case SEARCH_BY_INTERNET_COST_AND_FREE_GB:
 			mapOfTariffs.forEach((key, value) -> {
-				if (value instanceof LimitedInternetTariff) {
-					if (((LimitedInternetTariff)value).getInternetPrice()<=parameter1 && 
-							((LimitedInternetTariff)value).getFreeGb()<=parameter2){
+				if (value instanceof InternetTariff) {
+					if (((InternetTariff)value).getInternetPrice()<=parameter1 && 
+							((InternetTariff)value).getFreeGb()<=parameter2){
 						System.out.println("id="+key + " - " + value.toString().substring(27));
 					}
 				}
@@ -380,22 +392,37 @@ public class Operations implements Constants {
 		}
 	}
 	
-	public static void report(MobileTariff tariff, File file){
-		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
-			out.writeObject(tariff);
+	public static void serializeObjects (Map<Integer, MobileTariff> mapOfTariffs, File file){
+		ObjectOutputStream out = null;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(file));
+			out.writeObject(mapOfTariffs);
 			System.out.println("Запись успешно произведена в файл \"" + file.getName() + "\"");
-			System.out.println(tariff);
+			System.out.println(mapOfTariffs.toString());
 		} 
 		catch (IOException e) {
 			System.out.println("Ошибка записи. Невозможно создать файл \"" + file.getName() + "\"");
 			Logger.log(e);
+		} finally {
+			try {
+				if (out!=null) {
+					out.close();
+				}
+			} catch (Exception e){
+				System.err.println("Ошибка закрыти потока вывода : "+e);
+				Logger.log(e);
+			}
 		}
 	}
 	
-	public static MobileTariff readFile(File file){
-		MobileTariff fromFile = null;
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
-			fromFile = (MobileTariff) ois.readObject();
+	@SuppressWarnings("unchecked")
+	public static Map<Integer, MobileTariff> deserializeObjects(File file){
+		Map<Integer, MobileTariff> fromFile = null;
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(file));
+			fromFile = (Map<Integer, MobileTariff>) ois.readObject();
+			System.out.println("Объект успешно восстановлен.");
 		} 
 		catch (FileNotFoundException e) {
 			System.out.println("Файл не найден..." + file.getName());
@@ -407,8 +434,39 @@ public class Operations implements Constants {
 		catch (ClassNotFoundException e) {
 			System.out.println("Класс не найден...");
 			Logger.log(e);
+		} 
+		finally {
+			try {
+				if (ois!=null) {
+					ois.close();
+				}
+			} catch (Exception e){
+				System.err.println("Ошибка закрыти потока ввода : "+e);
+				Logger.log(e);
+			}
 		}
 		return fromFile;
 	}
-	
+
+	public static void subscribe(MobileTariff mobileTariff, String passport, StringBuilder clientInformation) {
+		mobileTariff.subscribe(passport, clientInformation);
+	}
+
+	public static void printAllClients(Map<Integer, MobileTariff> mapOfTariffs) {
+		for (MobileTariff tariff : mapOfTariffs.values()) {
+			System.out.println(tariff.getTariffName()+":");
+			tariff.printClients();
+			System.out.println(DELIMITER);
+			}
+		}
+
+	public static void unsubscribe(String passport, Map<Integer, MobileTariff> mapOfTariffs) {
+		for (MobileTariff tariff : mapOfTariffs.values()) {
+			if (tariff.getClients().containsKey(passport)) {
+				tariff.unsubscribe(passport);
+				System.out.println("Вы были успешно отключены от тарифного плана " + tariff.getTariffName());
+			}
+		}
+		System.out.println(DELIMITER);
+	}
 }

@@ -14,7 +14,10 @@ public abstract class InternetTariff extends MobileTariff {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1679423840685690632L;
+	private static final long serialVersionUID = 4058242840279895349L;
+	/**
+	 * 
+	 */
 	private double internetPrice; // стоимость интернета
 
 	public InternetTariff(String tariffname, double abonementPrice,
@@ -86,5 +89,7 @@ public abstract class InternetTariff extends MobileTariff {
 	public double getInternetPrice() {
 		return internetPrice;
 	}
+	
+	public abstract double getFreeGb();
 
 }

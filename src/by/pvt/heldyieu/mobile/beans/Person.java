@@ -7,17 +7,21 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import by.pvt.heldyieu.mobile.enums.Gender;
+
 /**
  * @author i.heldyieu
  *
  */
 public abstract class Person implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1743332889063998589L;
+	private static final long serialVersionUID = -5153137333831290066L;
 	private String firstName;
 	private String lastName;
+	private Gender gender;
 	private GregorianCalendar birthday;
 
 	/**
@@ -32,10 +36,11 @@ public abstract class Person implements Serializable {
 	 * @param lastName
 	 * @param birthday
 	 */
-	public Person(String firstName, String lastName, GregorianCalendar birthday) {
+	public Person(String firstName, String lastName, Gender gender, GregorianCalendar birthday) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.gender = gender;
 		this.birthday = birthday;
 	}
 
@@ -52,6 +57,20 @@ public abstract class Person implements Serializable {
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+	
+	/**
+	 * @return the gender
+	 */
+	public Gender getGender() {
+		return gender;
+	}
+
+	/**
+	 * @param gender the gender to set
+	 */
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	/**
@@ -91,7 +110,7 @@ public abstract class Person implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Менеджер - "+getFirstName()+" "+getLastName()+", дата рождения - "+getBirthday().get(Calendar.YEAR)+" "
+		return "Менеджер - "+getFirstName()+" "+getLastName()+" "+getGender()+", дата рождения - "+getBirthday().get(Calendar.YEAR)+" "
 																				+getBirthday().get(Calendar.MONTH)+" "
 																				+getBirthday().get(Calendar.DATE);
 	}

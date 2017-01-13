@@ -4,9 +4,11 @@
 package by.pvt.heldyieu.mobile.tools;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import by.pvt.heldyieu.mobile.beans.Manager;
 import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 
@@ -19,17 +21,12 @@ public final class Initialization implements Constants {
 	private static File file2;
 	private static Map<Integer, MobileTariff> mapOfTariffs = new HashMap<Integer, MobileTariff>();
 	
+	
 	/**
 	 * Closed constructor
 	 */
 	private Initialization() {
 	}
-	// Manager manager = new Manager("Karl", "Karlovich",new
-	// GregorianCalendar(1989,11,23),Category.TOPLEVEL);
-	// System.out.println(manager.toString());
-	// GregorianCalendar date = new GregorianCalendar(1970, 5, 12);
-	// System.out.println(date.before(manager.getBirthday()));
-	// }
 
 	public static void initialize() {
 
@@ -56,49 +53,28 @@ public final class Initialization implements Constants {
 		file = new File(INPUT_FOLDER + CLIENTS_FILE_NAMES);
 		file2 = new File(INPUT_FOLDER + CLIENTS_FILE_SURNAMES);
 		Operations.createRandomSubscribers(file, file2, mapOfTariffs);
-		
-		//print all tariffs
-//		Operations.printTariffs(mapOfTariffs);
-//		
-//		System.out.println("==========================================");
-//		
-		for (MobileTariff tariff : mapOfTariffs.values()) {
-			System.out.println(tariff.getTariffName()+":");
-			tariff.printClients();
-			System.out.println(DELIMITER);
-		}
-//		File qwe = new File(OUTPUT_FOLDER+"test");
-//		Operations.report(mapOfTariffs.get(1), qwe);
-//		
-//		MobileTariff qwer = Operations.readFile(qwe);
-//		System.out.println(qwer.toString());
-//		
-//		Operations.getClientsNumber(mapOfTariffs);
-//		
-//		Operations.sortServicesBasedOnAbonementPrice(mapOfTariffs);
-		
-		//Operations.findSuitableTariff(mapOfTariffs, SEARCH_BY_ABONPRICE_AND_OVERALL_COST);
-		
-
 	}
 
 	public static void menu() {
+		Manager manager = new Manager();
 		while (true) {
 			System.out.println("Выберите пользователя:\n"
 							+ "1. Клиент\n"
 							+ "2. Менеджер\n"
 							+ "0. Выход\n"
 							+ DELIMITER+"\n");
-			switch (Operations.inputnumber()) {
+			switch (Operations.inputNumber()) {
 			case 1:
-				main:
+				mainClient:
 				while (true) {
 					System.out.println("1. Показать список доступных тарифов\n"
 							+ "2. Поиск тарифов соответствующему заданному диапозону параметров\n"
 							+ "3. Подключится к указанному тарифу\n"
+							+ "4. Уйти с тарифного плана\n"
+							+ "5. Записать ваши подключенные тарифы в файл\n"
 							+ "0. Выход к выбору пользователя\n"
 							+ DELIMITER);
-					switch (Operations.inputnumber()) {
+					switch (Operations.inputNumber()) {
 					case 1:
 						Operations.printTariffs(mapOfTariffs);
 						break;
@@ -111,34 +87,34 @@ public final class Initialization implements Constants {
 									+ "3. Поиск по стоимости интернета и количеству интернет-трафика\n"
 									+ "0. Выход к выбору пользователя\n"
 									+ DELIMITER);
-							switch (Operations.inputnumber()) {
+							switch (Operations.inputNumber()) {
 							
 							case SEARCH_BY_ABONPRICE_AND_OVERALL_COST:
 								System.out.println("Введите стоимость абонентской платы, которая не должна превышать:");
-								double abonprice = (double) Operations.inputnumber();
+								double abonprice = (double) Operations.inputNumber();
 								System.out.println("Введите общую стоимость тарифного плана, которая не должна превышать:");
-								double cost = (double) Operations.inputnumber();
+								double cost = (double) Operations.inputNumber();
 								Operations.findSuitableTariff(mapOfTariffs, abonprice, cost, SEARCH_BY_ABONPRICE_AND_OVERALL_COST);
 								break out;
 							
 							case SEARCH_BY_CALL_COST_AND_FREE_MINUTES:
 								System.out.println("Введите стоимость звонков, которая не должна превышать:");
-								double calls = (double) Operations.inputnumber();
+								double calls = (double) Operations.inputNumber();
 								System.out.println("Введите количество бесплатных минут, которое не должно превышать:");
-								double minutes = (double) Operations.inputnumber();
+								double minutes = (double) Operations.inputNumber();
 								Operations.findSuitableTariff(mapOfTariffs, calls, minutes, SEARCH_BY_CALL_COST_AND_FREE_MINUTES);
 								break out;
 								
 							case SEARCH_BY_INTERNET_COST_AND_FREE_GB:
 								System.out.println("Введите стоимость интернета, которая не должна превышать:");
-								double priceInternet = (double) Operations.inputnumber();
+								double priceInternet = (double) Operations.inputNumber();
 								System.out.println("Введите количество интернет трафика, которое не должно превышать:");
-								double freeGb = (double) Operations.inputnumber();
+								double freeGb = (double) Operations.inputNumber();
 								Operations.findSuitableTariff(mapOfTariffs, priceInternet, freeGb, SEARCH_BY_INTERNET_COST_AND_FREE_GB);
 								break out;
 
 							case 0:
-								break main;
+								break mainClient;
 								
 							default:
 								System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
@@ -147,11 +123,39 @@ public final class Initialization implements Constants {
 						break;
 						
 					case 3:
+						StringBuilder clientInformation = new StringBuilder();
+						System.out.println("Введите номер вашего паспорта в формате MPxxxxxxx :");
+						String passport = Operations.inputString();
+						System.out.println("Введите фамилию :");
+						clientInformation.append(Operations.inputString()).append(" ");
+						System.out.println("Введите имя :");
+						clientInformation.append(Operations.inputString()).append(" ").append(Operations.getDate());
+						System.out.println("Введите id тарифного плана, к которому вы хотите подключиться :");
+						int id = Operations.inputNumber();
+						if (id > 0 && id < mapOfTariffs.size()) {
+							Operations.subscribe(mapOfTariffs.get(id), passport, clientInformation);
+							manager.addPersonalClient(passport+" "+clientInformation);
+							System.out.println("Вы успешно подключены к тарифу!");
+						} else {
+							System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER + " " + id);
+						}
 						
 						break;
 						
+					case 4:
+						System.out.println("Введите номер вашего паспорта в формате MPxxxxxxx :");
+						passport = Operations.inputString();
+						if (passport!=null) {
+							Operations.unsubscribe(passport, mapOfTariffs);
+						}
+						break;
+						
+					case 5:
+						//TODO
+						break;
+						
 					case 0:
-						break main;
+						break mainClient;
 						
 					default:
 						System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
@@ -160,7 +164,63 @@ public final class Initialization implements Constants {
 				break;
 				
 			case 2:
-				break;
+				mainManager:
+					while (true) {
+						System.out.println("1. Вывести список подключенных вами клиентов\n"
+								+ "2. Вывести общую численность абонентов\n"
+								+ "3. Вывести список всех абонентов\n"
+								+ "4. Вывести список тарифов отсортированных по абонентской стоимости\n"
+								+ "5. Записать объекты в файл\n"
+								+ "6. Прочитать объекты из файла\n"
+								+ "0. Выход к выбору пользователя\n"
+								+ DELIMITER);
+						switch (Operations.inputNumber()) {
+						case 1:
+							ArrayList<String> list = new ArrayList<String>();
+							list.addAll(manager.getPersonalClients());
+							for (String string : list) {
+								System.out.println(string);
+							}
+							System.out.println(DELIMITER);
+							break;
+							
+						case 2:
+							Operations.getClientsNumber(mapOfTariffs);
+							System.out.println(DELIMITER);
+							break;
+							
+						case 3:
+							Operations.printAllClients(mapOfTariffs);
+							System.out.println(DELIMITER);
+							
+							break;
+							
+						case 4:
+							Operations.sortServicesBasedOnAbonementPrice(mapOfTariffs);
+							System.out.println(DELIMITER);
+							break;
+							
+						case 5:
+							File output = new File(SERIALIZABLE_FILNAME);
+							Operations.serializeObjects(mapOfTariffs, output);
+							System.out.println(DELIMITER);
+							break;
+							
+						case 6:
+							output = new File(SERIALIZABLE_FILNAME);
+							mapOfTariffs = Operations.deserializeObjects(output);
+							System.out.println(DELIMITER);
+							break;
+							
+						case 0:
+							break mainManager;
+							
+						default:
+							System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER);
+						}
+					}
+			break;
+					
 				
 			case 0:
 				System.out.println("Работа завершена.\n"+DELIMITER);

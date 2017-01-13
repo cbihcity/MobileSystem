@@ -15,6 +15,9 @@ public class UnlimitedInternetTariff extends InternetTariff {
 	 * 
 	 */
 	private static final long serialVersionUID = 5787348409977860416L;
+	/**
+	 * 
+	 */
 	private double freeGb; // size of free internet traffic
 	
 	public UnlimitedInternetTariff() {

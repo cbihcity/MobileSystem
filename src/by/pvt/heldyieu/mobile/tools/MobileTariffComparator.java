@@ -9,7 +9,6 @@ import java.util.Comparator;
  * This class describes comparator, that uses in <b>MobileTariff</b> comparison
  * 
  * @author i.heldyieu 
- * @version 1.0
  */
 public class MobileTariffComparator implements Comparator<MobileTariff>, Serializable{
 	private static final long serialVersionUID = 386056766694741488L;

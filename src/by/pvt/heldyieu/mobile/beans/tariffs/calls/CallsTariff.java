@@ -7,26 +7,29 @@ import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
- * @author HeroDishonest
+ * @author i.heldyieu 
  *
  */
 public abstract class CallsTariff extends MobileTariff {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5388869734650337223L;
+	private double callsPrice; // cost of calls
+	
 	/**
-	 * 
+	 * Creates new entity of the class <b>{@code CallsTariff}</b> and
+	 * initialize it
+	 * @param tariffname - @see MobileTariff
+	 * @param abonementPrice - @see MobileTariff
+	 * @param callsPrice - cost of calls
+	 * @throws InvalidValueException - @see MobileTariff
 	 */
-	private double callsPrice; // стоимость звонков
-
 	public CallsTariff(String tariffname, double abonementPrice,
 			double callsPrice) throws InvalidValueException {
 		super(tariffname, abonementPrice);
 		if (callsPrice < 0) {
 			throw new InvalidValueException(
 					"Стоимость звонков не может быть < 0. Объект класса "
-							+ this.getClass().getName() + " не создан.", callsPrice);
+							+ this.getClass().getName() + " не создан.",
+					callsPrice);
 		} else {
 			this.callsPrice = callsPrice;
 		}
@@ -38,7 +41,6 @@ public abstract class CallsTariff extends MobileTariff {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -48,7 +50,6 @@ public abstract class CallsTariff extends MobileTariff {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -63,7 +64,6 @@ public abstract class CallsTariff extends MobileTariff {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -90,5 +90,4 @@ public abstract class CallsTariff extends MobileTariff {
 	}
 	
 	public abstract int getFreeMinutes();
-
 }

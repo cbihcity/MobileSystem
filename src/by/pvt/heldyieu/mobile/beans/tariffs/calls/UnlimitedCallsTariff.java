@@ -7,33 +7,25 @@ import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
- * @author HeroDishonest
+ * @author i.heldyieu 
  *
  */
 public class UnlimitedCallsTariff extends CallsTariff {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5692292755254701218L;
-	/**
-	 * 
-	 */
 	private int freeMinutes; //free minutes for this tariff
 	
-	
-	/**
-	 * 
-	 */
 	public UnlimitedCallsTariff() {
 		super();
 	}
 
 	/**
-	 * @param tariffname
-	 * @param abonementPrice
-	 * @param callsPrice
-	 * @param freeMinutes
-	 * @throws InvalidValueException
+	 * Creates new entity of the class <b>{@code UnlimitedCallsTariff}</b> and
+	 * initialize it
+	 * @param tariffname - @see MobileTariff
+	 * @param abonementPrice - @see MobileTariff
+	 * @param callsPrice - @see CallsTariff
+	 * @param freeMinutes - free minutes for this tariff
+	 * @throws InvalidValueException - @see MobileTariff
 	 */
 	public UnlimitedCallsTariff(String tariffname, double abonementPrice,
 			double callsPrice, int freeMinutes) throws InvalidValueException {
@@ -55,48 +47,36 @@ public class UnlimitedCallsTariff extends CallsTariff {
 		return freeMinutes;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
+		result = prime * result + freeMinutes;
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!super.equals(obj)) {
+		if (!super.equals(obj))
 			return false;
-		}
-		if (!(obj instanceof UnlimitedCallsTariff)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		UnlimitedCallsTariff other = (UnlimitedCallsTariff) obj;
-		if (clients == null) {
-			if (other.clients != null) {
-				return false;
-			}
-		} else if (!clients.equals(other.clients)) {
+		if (freeMinutes != other.freeMinutes)
 			return false;
-		}
 		return true;
 	}
 
 	/**
-	 * @return the clients
+	 * @return print the list of the clients
 	 */
 	public void printClients() {
 		super.printClients();
@@ -104,7 +84,6 @@ public class UnlimitedCallsTariff extends CallsTariff {
 	
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -112,24 +91,43 @@ public class UnlimitedCallsTariff extends CallsTariff {
 		return super.toString()+"; Количество бесплатных минут - "+getFreeMinutes()+"; Суммарная стоимость - " + getCost();
 	}
 
-	public void subscribe(String passport, StringBuilder dateOfSubscribe) {
-		clients.put(passport, dateOfSubscribe);
+	/**
+	 * subscribe clients to UnlimitedCallsTariff
+	 * @param passport 	- unique id for client 
+	 * @param clientInformation	- all information about client
+	 */
+	public void subscribe(String passport, StringBuilder clientInformation) {
+		clients.put(passport, clientInformation);
 	}
 
+	/**
+	 * unsubscribe clients from UnlimitedCallsTariff
+	 * @param passport 	- unique id for client 
+	 */
 	public void unsubscribe(String passport) {
 		clients.remove(passport);
 	}
 
+	/**
+	 * @return number of clients of UnlimitedCallsTariff
+	 */
 	public int getClientsNumbers() {
 		return clients.size();
 	}
 
+	/**
+	 * @return total cost of UnlimitedCallsTariff
+	 */
 	public double getCost() {
 		return getAbonementPrice() + getcallsPrice();
 	}
 
+	/**
+	 * compare abonement price of UnlimitedCallsTariff with another tariff
+	 * @param anotherTariff - another tariff for compare 
+	 */
 	@Override
-	public int compareTo(MobileTariff o) {
-		return Double.compare(this.getAbonementPrice(), o.getAbonementPrice());
+	public int compareTo(MobileTariff anotherTariff) {
+		return Double.compare(this.getAbonementPrice(), anotherTariff.getAbonementPrice());
 	}
 }

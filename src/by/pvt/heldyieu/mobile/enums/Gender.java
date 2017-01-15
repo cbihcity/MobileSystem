@@ -4,9 +4,19 @@
 package by.pvt.heldyieu.mobile.enums;
 
 /**
- * @author HeroDishonest
- *
+ * @author i.heldyieu
  */
+
 public enum Gender {
-FEMALE, MALE
+	FEMALE, MALE;
+	public String getGender(){
+		switch(this){
+			case FEMALE:
+				return "женщина";
+			case MALE:
+				return "мужчина";
+			default:
+				return "не определен";
+		}
+	}
 }

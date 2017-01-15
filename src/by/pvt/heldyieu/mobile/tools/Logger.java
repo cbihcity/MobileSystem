@@ -17,10 +17,9 @@ import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 
 
 /**
- * Class for loger various exceptions
+ * Class for logger various exceptions
  * 
  * @author i.heldyieu
- * @version 1.0
  */
 public final class Logger implements Constants {
 	public static final String logFileRoot = LOG_FILE_ROOT;
@@ -43,7 +42,6 @@ public final class Logger implements Constants {
 
 	/**
 	 * Writes log in file
-	 * 
 	 * @param exception - the entity of Throwable
 	 */
 	public static void log(final Throwable exception) {
@@ -72,7 +70,6 @@ public final class Logger implements Constants {
 
 	/**
 	 * Writes log in file
-	 * 
 	 * @param message - string message
 	 */
 	public static void log(final String message) {

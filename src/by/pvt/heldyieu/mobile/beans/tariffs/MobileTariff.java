@@ -13,23 +13,17 @@ import by.pvt.heldyieu.mobile.beans.interfaces.Unsubscribable;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
- * @author i.heldyieu version 1.0
+ * @author i.heldyieu 
  */
 public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable, Comparable<MobileTariff>, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4444143939196197302L;
-	private double abonementPrice; // абонентская плата
-	private String tariffName; // название тарифного плана
-	protected Map<String, StringBuilder> clients = new HashMap<String, StringBuilder>();
+	private double abonementPrice;	 // abonement price
+	private String tariffName; 		// name of mobiletariff
+	protected Map<String, StringBuilder> clients = new HashMap<String, StringBuilder>(); // list of clients on exact mobiletariff
 	private static int count = 0;
-	private static Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // список доступных тарифов
+	private static Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // list of available mobiletariffs
 
-	/**
-	 * Creates new entity of the class <b>{@code MobileTariff}</b>
-	 */
 	public MobileTariff() {
 		super();
 	}
@@ -40,7 +34,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	 * 
 	 * @param tariffname	- name of tariff
 	 * @param abonementPrice	- the price of tariff per month
-	 * @throws IllegalValueException	- see in super constructor
+	 * @throws IllegalValueException	- throws exception if input value is incorrect
 	 */
 	public MobileTariff(String tariffname, double abonementPrice) throws InvalidValueException {
 		this.tariffName = tariffname;
@@ -62,8 +56,6 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 		return "Название тарифного плана - " + getTariffName()
 				+ "; Стоимость абонентской платы - " + getAbonementPrice();
 	}
-
-	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -141,9 +133,11 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	protected static final void addTariffInstance(final MobileTariff mobileTariff) {
 		TARIFFS.put(++count, mobileTariff);
 	}
-
+	
+	//total cost of specific mobiletariff 
 	abstract public double getCost();
 
+	//return total number of clients of specific mobiletariff
 	abstract public int getClientsNumbers();
 
 }

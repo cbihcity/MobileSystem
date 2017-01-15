@@ -1,5 +1,8 @@
 package by.pvt.heldyieu.mobile.enums;
 
+/**
+ * @author i.heldyieu
+ */
 public enum Category {
 	JUNIOR, MIDDLE, TOPLEVEL;
 	

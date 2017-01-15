@@ -7,32 +7,24 @@ import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
- * @author HeroDishonest
- *
+ * @author i.heldyieu
  */
 public class LimitedInternetTariff extends InternetTariff {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2219850263435567609L;
-	/**
-	 * 
-	 */
 	private double freeGb; // size of free internet traffic
 	
-	/**
-	 * 
-	 */
 	public LimitedInternetTariff() {
 		super();
 	}
 
 	/**
-	 * @param tariffname
-	 * @param abonementPrice
-	 * @param internetPrice
-	 * @param freeGb
-	 * @throws InvalidValueException
+	 * Creates new entity of the class <b>{@code LimitedInternetTariff}</b> and
+	 * initialize it
+	 * @param tariffname - @see MobileTariff
+	 * @param abonementPrice - @see MobileTariff
+	 * @param internetPrice - @see InternetTariff
+	 * @param freeGb - size of free internet traffic
+	 * @throws InvalidValueException - @see MobileTariff
 	 */
 	public LimitedInternetTariff(String tariffname, double abonementPrice,
 			double internetPrice, double freeGb) throws InvalidValueException {
@@ -89,7 +81,6 @@ public class LimitedInternetTariff extends InternetTariff {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -97,26 +88,48 @@ public class LimitedInternetTariff extends InternetTariff {
 		return super.toString() + "; Количество бесплатного интернет траффика - "+getFreeGb()+"; Суммарная стоимость - " + getCost();
 	}
 	
+	/**
+	 * @return print the list of the clients
+	 */
 	public void printClients() {
 		super.printClients();
 	}
 
-	public void subscribe(String passport, StringBuilder dateOfSubscribe) {
-		clients.put(passport, dateOfSubscribe);
+	/**
+	 * subscribe clients to LimitedInternetTariff
+	 * @param passport 	- unique id for client 
+	 * @param clientInformation	- all information about client
+	 */
+	public void subscribe(String passport, StringBuilder clientInformation) {
+		clients.put(passport, clientInformation);
 	}
 
+	/**
+	 * unsubscribe clients from LimitedInternetTariff
+	 * @param passport 	- unique id for client 
+	 */
 	public void unsubscribe(String passport) {
 		clients.remove(passport);
 	}
 
+	/**
+	 * @return number of clients of LimitedInternetTariff
+	 */
 	public int getClientsNumbers() {
 		return clients.size();
 	}
 
+	/**
+	 * @return total cost of LimitedInternetTariff
+	 */
 	public double getCost() {
 		return getAbonementPrice() + getInternetPrice();
 	}
 
+	/**
+	 * compare abonement price of LimitedInternetTariff with another tariff
+	 * @param anotherTariff - another tariff for compare 
+	 */
 	@Override
 	public int compareTo(MobileTariff o) {
 		return Double.compare(this.getAbonementPrice(), o.getAbonementPrice());

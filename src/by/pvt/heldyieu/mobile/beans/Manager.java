@@ -3,24 +3,21 @@
  */
 package by.pvt.heldyieu.mobile.beans;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import by.pvt.heldyieu.mobile.enums.Category;
 import by.pvt.heldyieu.mobile.enums.Gender;
 
 /**
  * @author i.heldyieu
- *
  */
 public class Manager extends Person {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7203434436755432144L;
 	private Category category;
-	private ArrayList<String> personalClients = new ArrayList<String>(); 
+	private Set<String> personalClients = new HashSet<String>(); 
 	/**
 	 * 
 	 */
@@ -53,7 +50,7 @@ public class Manager extends Person {
 	/**
 	 * @return the personalClients
 	 */
-	public ArrayList<String> getPersonalClients() {
+	public Set<String> getPersonalClients() {
 		return personalClients;
 	}
 
@@ -111,6 +108,4 @@ public class Manager extends Person {
 	public void addPersonalClient (String client){
 		personalClients.add(client);
 	}
-	
-
 }

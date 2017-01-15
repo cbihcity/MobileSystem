@@ -19,7 +19,7 @@ import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 public final class Initialization implements Constants {
 	private static File file;
 	private static File file2;
-	private static Map<Integer, MobileTariff> mapOfTariffs = new HashMap<Integer, MobileTariff>();
+	static Map<Integer, MobileTariff> mapOfTariffs = new HashMap<Integer, MobileTariff>();
 	
 	
 	/**
@@ -28,7 +28,7 @@ public final class Initialization implements Constants {
 	private Initialization() {
 	}
 
-	public static void initialize() {
+	public static void initializeObjects() {
 
 		// Create new entities for LimitedCallsTariff tariffs from input files
 		file = new File(INPUT_FOLDER + LIMITED_CALLS_TARIFF);
@@ -71,7 +71,7 @@ public final class Initialization implements Constants {
 							+ "2. Поиск тарифов соответствующему заданному диапозону параметров\n"
 							+ "3. Подключится к указанному тарифу\n"
 							+ "4. Уйти с тарифного плана\n"
-							+ "5. Записать ваши подключенные тарифы в файл\n"
+							+ "5. Записать в файл тарифные планы на которые вы подключены\n"
 							+ "0. Выход к выбору пользователя\n"
 							+ DELIMITER);
 					switch (Operations.inputNumber()) {
@@ -100,7 +100,7 @@ public final class Initialization implements Constants {
 							case SEARCH_BY_CALL_COST_AND_FREE_MINUTES:
 								System.out.println("Введите стоимость звонков, которая не должна превышать:");
 								double calls = (double) Operations.inputNumber();
-								System.out.println("Введите количество бесплатных минут, которое не должно превышать:");
+								System.out.println("Введите необходимое минимальное количество бесплатных минут :");
 								double minutes = (double) Operations.inputNumber();
 								Operations.findSuitableTariff(mapOfTariffs, calls, minutes, SEARCH_BY_CALL_COST_AND_FREE_MINUTES);
 								break out;
@@ -108,7 +108,7 @@ public final class Initialization implements Constants {
 							case SEARCH_BY_INTERNET_COST_AND_FREE_GB:
 								System.out.println("Введите стоимость интернета, которая не должна превышать:");
 								double priceInternet = (double) Operations.inputNumber();
-								System.out.println("Введите количество интернет трафика, которое не должно превышать:");
+								System.out.println("Введите необходимое минимальное количество интернет трафика :");
 								double freeGb = (double) Operations.inputNumber();
 								Operations.findSuitableTariff(mapOfTariffs, priceInternet, freeGb, SEARCH_BY_INTERNET_COST_AND_FREE_GB);
 								break out;
@@ -124,8 +124,7 @@ public final class Initialization implements Constants {
 						
 					case 3:
 						StringBuilder clientInformation = new StringBuilder();
-						System.out.println("Введите номер вашего паспорта в формате MPxxxxxxx :");
-						String passport = Operations.inputString();
+						String passport = Operations.checkPassportValue();
 						System.out.println("Введите фамилию :");
 						clientInformation.append(Operations.inputString()).append(" ");
 						System.out.println("Введите имя :");
@@ -135,23 +134,35 @@ public final class Initialization implements Constants {
 						if (id > 0 && id < mapOfTariffs.size()) {
 							Operations.subscribe(mapOfTariffs.get(id), passport, clientInformation);
 							manager.addPersonalClient(passport+" "+clientInformation);
-							System.out.println("Вы успешно подключены к тарифу!");
+							System.out.println("Вы успешно подключены к тарифу - "+mapOfTariffs.get(id).getTariffName()+"!");
 						} else {
-							System.out.println(INCORRECT_INPUT_VALUE_FOR_SCANNER + " " + id);
+							System.out.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
 						}
-						
 						break;
 						
 					case 4:
 						System.out.println("Введите номер вашего паспорта в формате MPxxxxxxx :");
-						passport = Operations.inputString();
+						passport = Operations.checkPassportValue();
 						if (passport!=null) {
 							Operations.unsubscribe(passport, mapOfTariffs);
 						}
 						break;
 						
 					case 5:
-						//TODO
+						passport = Operations.checkPassportValue();
+						while (true) {
+							System.out.println("Введите имя файла для сохранения в формате ИМЯ.txt");
+							String filename = Operations.inputString();
+							File file = new File(OUTPUT_FOLDER + filename);
+							if (file.exists()) {
+								System.out
+										.println("Файл с таким именем уже существует. Выберите другое...");
+								continue;
+							}
+							Operations.writeTariffsToFile(file, passport, mapOfTariffs);
+							break;
+							
+						}
 						break;
 						
 					case 0:
@@ -201,13 +212,13 @@ public final class Initialization implements Constants {
 							break;
 							
 						case 5:
-							File output = new File(SERIALIZABLE_FILNAME);
+							File output = new File(SERIALIZABLE_TARIFFS_FILNAME);
 							Operations.serializeObjects(mapOfTariffs, output);
 							System.out.println(DELIMITER);
 							break;
 							
 						case 6:
-							output = new File(SERIALIZABLE_FILNAME);
+							output = new File(SERIALIZABLE_TARIFFS_FILNAME);
 							mapOfTariffs = Operations.deserializeObjects(output);
 							System.out.println(DELIMITER);
 							break;

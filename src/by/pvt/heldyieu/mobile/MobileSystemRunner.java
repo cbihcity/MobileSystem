@@ -17,7 +17,7 @@ public class MobileSystemRunner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Initialization.initialize();
+		Initialization.initializeObjects();
 		Initialization.menu();
 	}
 

@@ -7,33 +7,25 @@ import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
- * @author HeroDishonest
+ * @author i.heldyieu
  *
  */
 public class LimitedCallsTariff extends CallsTariff {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3732899921232223661L;
-	/**
-	 * 
-	 */
-	private int freeMinutes; //free minutes for this tariff
+	private int freeMinutes; // free minutes for this tariff
 	
-	
-	/**
-	 * 
-	 */
 	public LimitedCallsTariff() {
 		super();
 	}
 
 	/**
-	 * @param tariffname
-	 * @param abonementPrice
-	 * @param callsPrice
-	 * @param freeMinutes
-	 * @throws InvalidValueException
+	 * Creates new entity of the class <b>{@code LimitedCallsTariff}</b> and
+	 * initialize it
+	 * @param tariffname - @see MobileTariff
+	 * @param abonementPrice - @see MobileTariff
+	 * @param callsPrice - @see CallsTariff
+	 * @param freeMinutes - free minutes for this tariff
+	 * @throws InvalidValueException - @see MobileTariff
 	 */
 	public LimitedCallsTariff(String tariffname, double abonementPrice,
 			double callsPrice, int freeMinutes) throws InvalidValueException {
@@ -54,8 +46,6 @@ public class LimitedCallsTariff extends CallsTariff {
 	public int getFreeMinutes() {
 		return freeMinutes;
 	}
-
-	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -87,7 +77,6 @@ public class LimitedCallsTariff extends CallsTariff {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -96,30 +85,49 @@ public class LimitedCallsTariff extends CallsTariff {
 	}
 	
 	/**
-	 * @return the clients
+	 * @return print the list of the clients
 	 */
 	public void printClients() {
 		super.printClients();
 	}
 
-	public void subscribe(String passport, StringBuilder dateOfSubscribe) {
-		clients.put(passport, dateOfSubscribe);
+	/**
+	 * subscribe clients to LimitedCallsTariff
+	 * @param passport 	- unique id for client 
+	 * @param clientInformation	- all information about client
+	 */
+	public void subscribe(String passport, StringBuilder clientInformation) {
+		clients.put(passport, clientInformation);
 	}
-
+	
+	/**
+	 * unsubscribe clients from LimitedCallsTariff
+	 * @param passport 	- unique id for client 
+	 */
 	public void unsubscribe(String passport) {
 		clients.remove(passport);
 	}
 
+	/**
+	 * @return number of clients of LimitedCallsTariff
+	 */
 	public int getClientsNumbers() {
 		return clients.size();
 	}
 
+	/**
+	 * @return total cost of LimitedCallsTariff
+	 */
 	public double getCost() {
 		return getAbonementPrice() + getcallsPrice();
 	}
 
+	/**
+	 * compare abonement price of LimitedCallsTariff with another tariff
+	 * @param anotherTariff - another tariff for compare 
+	 */
 	@Override
-	public int compareTo(MobileTariff o) {
-		return Double.compare(this.getAbonementPrice(), o.getAbonementPrice());
+	public int compareTo(MobileTariff anotherTariff) {
+		return Double.compare(this.getAbonementPrice(), anotherTariff.getAbonementPrice());
 	}
 }

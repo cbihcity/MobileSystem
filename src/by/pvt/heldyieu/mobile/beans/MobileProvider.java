@@ -3,6 +3,9 @@ package by.pvt.heldyieu.mobile.beans;
 import java.util.Map;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 
+/**
+ * @author i.heldyieu
+ */
 public abstract class MobileProvider {
 	private String companyName;
 	private String address;
@@ -19,13 +22,12 @@ public abstract class MobileProvider {
 	}
 
 	/**
-	 * @param companyName
-	 * @param address
-	 * @param phoneNumber
-	 * @param webSite
-	 * @param eMail
-	 * @param listOfManagers
-	 * @param listOfMobileTariffs
+	 * @param companyName - name of company
+	 * @param address - addres of company
+	 * @param phoneNumber - phonenumber of company
+	 * @param webSite - website of company
+	 * @param eMail = email of company
+	 * @param listOfMobileTariffs - list of tariffs of company
 	 */
 	public MobileProvider(String companyName, 
 												String address,

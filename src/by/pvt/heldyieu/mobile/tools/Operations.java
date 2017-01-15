@@ -28,7 +28,6 @@ public class Operations implements Constants {
 	
 	/**
 	 * Reads list of tariffs from file
-	 * 
 	 * @param file - input file
 	 * @param list - list of tariffs for returning
 	 * @throws FileNotFoundException 
@@ -38,7 +37,7 @@ public class Operations implements Constants {
 		String temp = null;
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-			while ((temp=br.readLine())!=null) {
+			while ((temp = br.readLine()) != null) {
 				list.add(temp);
 			}
 		} catch (FileNotFoundException e) {
@@ -51,14 +50,13 @@ public class Operations implements Constants {
 			Logger.log(e);
 			System.out.println("Произошла ошибка ввода-вывода" + file.getName()
 					+ " Подробную информацию смотрите в файле log.txt");
-		}
-		finally {
+		} finally {
 			try {
-				if (br!=null) {
+				if (br != null) {
 					br.close();
 				}
-			} catch (Exception e){
-				System.err.println("Ошибка закрыти потока ввода : "+e);
+			} catch (Exception e) {
+				System.err.println("Ошибка закрыти потока ввода : " + e);
 				Logger.log(e);
 			}
 		}
@@ -105,7 +103,6 @@ public class Operations implements Constants {
 
 	/**
 	 * Print all available tariffs at MobileTariff
-	 * 
 	 * @param mapOfTariffs - list of available tariffs
 	 */
 	public static void printTariffs(Map<Integer, MobileTariff> mapOfTariffs) {
@@ -120,7 +117,6 @@ public class Operations implements Constants {
 	
 	/**
 	 * Read from file values of specific tariff and create its entites
-	 * 
 	 * @param file - input file with values for specific tariff
 	 * @param typeTariff - specific type of tariff
 	 */
@@ -158,7 +154,6 @@ public class Operations implements Constants {
 	
 	/**
 	 * Create new LimitedCallsTariff with specific values
-	 * 
 	 * @param itTokens - list of parsed values for new tariff
 	 */
 	private static void createLimitedCallsTariff(Iterator<String> itTokens) {
@@ -173,13 +168,13 @@ public class Operations implements Constants {
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта LimitedCallsTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта LimitedCallsTariff возникла ошибка."
+							+ " Подробное описание ошибки в файле log.txt");
 		}
 	}
 
 	/**
-	 * Create new LimitedCallsTariff with specific values
-	 * 
+	 * Create new LimitedInternetTariff with specific values
 	 * @param itTokens - list of parsed values for new tariff
 	 */
 	private static void createLimitedInternetTariff(Iterator<String> itTokens) {
@@ -194,13 +189,13 @@ public class Operations implements Constants {
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта LimitedInternetTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта LimitedInternetTariff возникла ошибка."
+							+ " Подробное описание ошибки в файле log.txt");
 		}
 	}
 
 	/**
-	 * Create new LimitedCallsTariff with specific values
-	 * 
+	 * Create new UnlimitedCallsTariff with specific values
 	 * @param itTokens - list of parsed values for new tariff
 	 */
 	private static void createUnlimitedCallsTariff(Iterator<String> itTokens) {
@@ -215,13 +210,13 @@ public class Operations implements Constants {
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта UnlimitedCallsTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта UnlimitedCallsTariff возникла ошибка."
+							+ " Подробное описание ошибки в файле log.txt");
 		}
 	}
 
 	/**
-	 * Create new LimitedCallsTariff with specific values
-	 * 
+	 * Create new UnlimitedInternetTariff with specific values
 	 * @param itTokens - list of parsed values for new tariff
 	 */
 	private static void createUnlimitedInternetTariff(Iterator<String> itTokens) {
@@ -236,12 +231,13 @@ public class Operations implements Constants {
 				| NoSuchElementException e) {
 			Logger.log(e);
 			System.out
-					.println("При создании объекта UnlimitedInternetTariff возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании объекта UnlimitedInternetTariff возникла ошибка."
+							+ " Подробное описание ошибки в файле log.txt");
 		}
 	}
 
 	public static void createRandomSubscribers(File file, File file2, Map<Integer, MobileTariff> mapOfTariffs) {
-		Operations.createListsNamesAndSurnames(file,file2);
+		Operations.createListsNamesAndSurnames(file, file2);
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			Operations.subscribeForTariff(tariff);
 		}
@@ -250,40 +246,38 @@ public class Operations implements Constants {
 	private static void createListsNamesAndSurnames(File file, File file2) {
 		List<String> tempNames = new ArrayList<>();
 		List<String> tempClients = new ArrayList<>();
-		
 		try {
 			Operations.readFile(tempNames, file);
 			Operations.readFile(tempClients, file2);
 		} catch (FileNotFoundException e) {
 			System.out
-			.println("При создании списка абонентов возникла ошибка. Подробное описание ошибки в файле log.txt");
+					.println("При создании списка абонентов возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
-		
-			Iterator<String> namesTokens = tempNames.iterator();
-			Iterator<String> surnameTokens = tempClients.iterator();
-			while (namesTokens.hasNext()) {
-				namesClients = Operations.stringParser(namesTokens.next());
-				}
-			while (surnameTokens.hasNext()) {
-				surnamesClients = Operations.stringParser(surnameTokens.next());
+		Iterator<String> namesTokens = tempNames.iterator();
+		Iterator<String> surnameTokens = tempClients.iterator();
+		while (namesTokens.hasNext()) {
+			namesClients = Operations.stringParser(namesTokens.next());
+		}
+		while (surnameTokens.hasNext()) {
+			surnamesClients = Operations.stringParser(surnameTokens.next());
 			}
 	}
 	
 	private static void subscribeForTariff(MobileTariff tariff) {
 		Random randomGenerator = new Random();
-		StringBuilder dateOfSubscribe;
-		String [] arrayNames = new String[namesClients.size()];
+		StringBuilder clientInformation;
+		String[] arrayNames = new String[namesClients.size()];
 		arrayNames = namesClients.toArray(arrayNames);
-		String [] arraySurnames = new String[surnamesClients.size()];
+		String[] arraySurnames = new String[surnamesClients.size()];
 		arraySurnames = surnamesClients.toArray(arraySurnames);
 		int randomNumberClients = randomGenerator.nextInt(50);
 		try {
 			for (int i = 0; i < randomNumberClients; i++) {
-				dateOfSubscribe = new StringBuilder();
+				clientInformation = new StringBuilder();
 				String date = Operations.getRandomDate();
 				tariff.subscribe(
-						"MP" + (randomGenerator.nextInt(PASSPORT_VALUE_FOR_RANDOM) + 1000000),
-						dateOfSubscribe.append(arraySurnames[randomGenerator.nextInt(arraySurnames.length)])
+						"MP" + (randomGenerator.nextInt(PASSPORT_VALUE_FOR_RANDOM) + PASSPORT_VALUE_MINIMUM_FOR_RANDOM),
+						clientInformation.append(arraySurnames[randomGenerator.nextInt(arraySurnames.length)])
 							.append(" ")
 							.append(arrayNames[randomGenerator.nextInt(arrayNames.length)])
 							.append(" ")
@@ -296,9 +290,10 @@ public class Operations implements Constants {
 	
 	public static String getRandomDate() {
 		Random rand = new Random();
-		int year = rand.nextInt(2)+2015;
-		int month = rand.nextInt(12);
-		int day = rand.nextInt(32);
+		int year = rand.nextInt(YEAR_VALUE_FOR_RANDOM)
+				+ YEAR_VALUE_MINIMUM_FOR_RANDOM;
+		int month = rand.nextInt(MONTH_VALUE_FOR_RANDOM);
+		int day = rand.nextInt(DAY_VALUE_FOR_RANDOM);
 		GregorianCalendar calendar = new GregorianCalendar(year, month, day);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(calendar.getTime());
@@ -321,7 +316,7 @@ public class Operations implements Constants {
 	/**
 	 * Displays lists of tariffs sort by abonement price
 	 * @param mapOfTariffs 	- list of available tariffs
-	 * @param index 	- sorting index
+	 * @param index - sorting index
 	 */
 	public static void sortServicesBasedOnAbonementPrice(Map<Integer, MobileTariff> mapOfTariffs){
 		List<MobileTariff> list = new ArrayList<>(mapOfTariffs.values());
@@ -339,9 +334,9 @@ public class Operations implements Constants {
 			if(s instanceof MobileTariff){
 				Set<Map.Entry<Integer, MobileTariff>> set = mapOfTariffs.entrySet(); 
 				Iterator<Map.Entry<Integer, MobileTariff>> it = set.iterator();
-				while(it.hasNext()){
+				while (it.hasNext()) {
 					Map.Entry<Integer, MobileTariff> entry = it.next();
-					if(entry.getValue().equals((MobileTariff)s)){
+					if (entry.getValue().equals((MobileTariff)s)){
 						System.out.println("id=" + entry.getKey() + " - " + entry.getValue().toString());
 						break;
 					}
@@ -357,7 +352,7 @@ public class Operations implements Constants {
 			mapOfTariffs.forEach((key, value) -> {
 				if (value.getAbonementPrice() <= parameter1
 						&& value.getCost() <= parameter2) {
-					System.out.println("id="+key + " - " + value.toString().substring(27));
+					System.out.println("id="+key + " - " + value.toString().substring(INDEX_FOR_SUBSTRING_TARIFFNAME));
 				}
 			});
 			System.out.println(DELIMITER);
@@ -367,7 +362,7 @@ public class Operations implements Constants {
 			mapOfTariffs.forEach((key, value) -> {
 				if (value instanceof CallsTariff) {
 					if (((CallsTariff)value).getcallsPrice()<=parameter1 && 
-							((CallsTariff)value).getFreeMinutes()<=parameter2){
+							((CallsTariff)value).getFreeMinutes()>=parameter2){
 						System.out.println("id="+key + " - " + value.toString().substring(27));
 					}
 				}
@@ -379,7 +374,7 @@ public class Operations implements Constants {
 			mapOfTariffs.forEach((key, value) -> {
 				if (value instanceof InternetTariff) {
 					if (((InternetTariff)value).getInternetPrice()<=parameter1 && 
-							((InternetTariff)value).getFreeGb()<=parameter2){
+							((InternetTariff)value).getFreeGb()>=parameter2){
 						System.out.println("id="+key + " - " + value.toString().substring(27));
 					}
 				}
@@ -452,14 +447,6 @@ public class Operations implements Constants {
 		mobileTariff.subscribe(passport, clientInformation);
 	}
 
-	public static void printAllClients(Map<Integer, MobileTariff> mapOfTariffs) {
-		for (MobileTariff tariff : mapOfTariffs.values()) {
-			System.out.println(tariff.getTariffName()+":");
-			tariff.printClients();
-			System.out.println(DELIMITER);
-			}
-		}
-
 	public static void unsubscribe(String passport, Map<Integer, MobileTariff> mapOfTariffs) {
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			if (tariff.getClients().containsKey(passport)) {
@@ -468,5 +455,55 @@ public class Operations implements Constants {
 			}
 		}
 		System.out.println(DELIMITER);
+	}
+	
+	public static void printAllClients(Map<Integer, MobileTariff> mapOfTariffs) {
+		for (MobileTariff tariff : mapOfTariffs.values()) {
+			System.out.println(tariff.getTariffName()+":");
+			tariff.printClients();
+			System.out.println(DELIMITER);
+			}
+		}
+
+	public static String checkPassportValue() {
+		String passport;
+		while (true) {
+			System.out
+					.println("Введите номер вашего паспорта в формате MPxxxxxxx :");
+			passport = Operations.inputString();
+			if (!passport.startsWith("MP")) {
+				System.out
+						.println(MYSMATCH_TYPE_INPUT_VALUE_FOR_SCANNER);
+			} else {
+				break;
+			}
+		}
+		return passport;
+	}
+
+	public static void writeTariffsToFile(File filename, String passport, Map<Integer, MobileTariff> mapOfTariffs) {
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename),"utf-8")));
+			for (MobileTariff tariff : mapOfTariffs.values()) {
+				if (tariff.getClients().containsKey(passport)) {
+					pw.println(tariff.toString());
+				}
+			}
+			System.out.println("Запись успешно произведена в файл \"" + filename.getPath() + "\"");
+		} 
+		catch (IOException e) {
+			System.out.println("Ошибка записи. Невозможно создать файл \"" + filename.getPath() + "\"");
+			Logger.log(e);
+		} finally {
+			try {
+				if (pw!=null) {
+					pw.close();
+				}
+			} catch (Exception e){
+				System.err.println("Ошибка закрыти потока вывода : "+e);
+				Logger.log(e);
+			}
+		}
 	}
 }

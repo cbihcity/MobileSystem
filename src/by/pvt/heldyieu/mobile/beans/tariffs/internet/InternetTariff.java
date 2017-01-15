@@ -7,19 +7,20 @@ import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
 
 /**
- * @author HeroDishonest
- *
+ * @author i.heldyieu
  */
 public abstract class InternetTariff extends MobileTariff {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4058242840279895349L;
-	/**
-	 * 
-	 */
-	private double internetPrice; // стоимость интернета
+	private double internetPrice; // cost of internet
 
+	/**
+	 * Creates new entity of the class <b>{@code InternetTariff}</b> and
+	 * initialize it
+	 * @param tariffname - @see MobileTariff
+	 * @param abonementPrice - @see MobileTariff
+	 * @param internetPrice - cost of internet
+	 * @throws InvalidValueException - @see MobileTariff
+	 */
 	public InternetTariff(String tariffname, double abonementPrice,
 			double internetPrice) throws InvalidValueException {
 		super(tariffname, abonementPrice);
@@ -38,18 +39,15 @@ public abstract class InternetTariff extends MobileTariff {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "; Стоимость интернета - "
-				+ getInternetPrice();
+		return super.toString() + "; Стоимость интернета - " + getInternetPrice();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -64,7 +62,6 @@ public abstract class InternetTariff extends MobileTariff {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -91,5 +88,4 @@ public abstract class InternetTariff extends MobileTariff {
 	}
 	
 	public abstract double getFreeGb();
-
 }

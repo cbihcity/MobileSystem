@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
-import by.pvt.heldyieu.mobile.beans.interfaces.Subscribable;
-import by.pvt.heldyieu.mobile.beans.interfaces.Unsubscribable;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
+import by.pvt.heldyieu.mobile.interfaces.Constants;
+import by.pvt.heldyieu.mobile.interfaces.Subscribable;
+import by.pvt.heldyieu.mobile.interfaces.Unsubscribable;
 
 /**
  * @author i.heldyieu 

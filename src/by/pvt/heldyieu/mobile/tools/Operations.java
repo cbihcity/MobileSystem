@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.calls.CallsTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.calls.LimitedCallsTariff;
@@ -14,6 +13,7 @@ import by.pvt.heldyieu.mobile.beans.tariffs.internet.InternetTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.internet.LimitedInternetTariff;
 import by.pvt.heldyieu.mobile.beans.tariffs.internet.UnlimitedInternetTariff;
 import by.pvt.heldyieu.mobile.exceptions.InvalidValueException;
+import by.pvt.heldyieu.mobile.interfaces.Constants;
 
 public class Operations implements Constants {
 	private static Scanner input = new Scanner(System.in, "utf-8");

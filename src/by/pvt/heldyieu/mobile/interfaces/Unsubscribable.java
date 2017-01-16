@@ -1,7 +1,7 @@
 /**
  * 
  */
-package by.pvt.heldyieu.mobile.beans.interfaces;
+package by.pvt.heldyieu.mobile.interfaces;
 
 /**
  * @author i.heldyieu

@@ -13,7 +13,7 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
+import by.pvt.heldyieu.mobile.interfaces.Constants;
 
 
 /**

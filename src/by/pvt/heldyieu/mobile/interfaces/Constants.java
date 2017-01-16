@@ -1,4 +1,4 @@
-package by.pvt.heldyieu.mobile.beans.interfaces;
+package by.pvt.heldyieu.mobile.interfaces;
 
 public interface Constants {
 	String INPUT_FOLDER = "src\\by\\pvt\\heldyieu\\mobile\\files\\input\\";

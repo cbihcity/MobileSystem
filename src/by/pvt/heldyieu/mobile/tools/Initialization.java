@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.pvt.heldyieu.mobile.beans.Manager;
-import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
+import by.pvt.heldyieu.mobile.interfaces.Constants;
 
 /**
  * @author i.heldyieu

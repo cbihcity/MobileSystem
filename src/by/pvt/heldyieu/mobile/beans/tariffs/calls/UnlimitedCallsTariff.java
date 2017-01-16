@@ -123,11 +123,11 @@ public class UnlimitedCallsTariff extends CallsTariff {
 	}
 
 	/**
-	 * compare abonement price of UnlimitedCallsTariff with another tariff
+	 * compare total cost of UnlimitedCallsTariff with another tariff
 	 * @param anotherTariff - another tariff for compare 
 	 */
 	@Override
 	public int compareTo(MobileTariff anotherTariff) {
-		return Double.compare(this.getAbonementPrice(), anotherTariff.getAbonementPrice());
+		return Double.compare(this.getCost(), anotherTariff.getCost());
 	}
 }

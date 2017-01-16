@@ -127,12 +127,11 @@ public class LimitedInternetTariff extends InternetTariff {
 	}
 
 	/**
-	 * compare abonement price of LimitedInternetTariff with another tariff
+	 * compare total cost of LimitedInternetTariff with another tariff
 	 * @param anotherTariff - another tariff for compare 
 	 */
 	@Override
-	public int compareTo(MobileTariff o) {
-		return Double.compare(this.getAbonementPrice(), o.getAbonementPrice());
+	public int compareTo(MobileTariff anotherTariff) {
+		return Double.compare(this.getCost(), anotherTariff.getCost());
 	}
-
 }

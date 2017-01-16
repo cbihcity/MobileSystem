@@ -21,7 +21,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	private double abonementPrice;	 // abonement price
 	private String tariffName; 		// name of mobiletariff
 	protected Map<String, StringBuilder> clients = new HashMap<String, StringBuilder>(); // list of clients on exact mobiletariff
-	private static int count = 0;
+	private static int count = 0;	// count of created tariifs
 	private static Map<Integer, MobileTariff> TARIFFS = new HashMap<Integer, MobileTariff>(); // list of available mobiletariffs
 
 	public MobileTariff() {

@@ -19,6 +19,8 @@ public class Operations implements Constants {
 	private static Scanner input = new Scanner(System.in, "utf-8");
 	private static List<String> namesClients = new ArrayList<String>();
 	private static List<String> surnamesClients = new ArrayList<String>();
+	private static File filePathNames = new File(INPUT_FOLDER + CLIENTS_FILE_NAMES);
+	private static File filePathSurnames = new File(INPUT_FOLDER + CLIENTS_FILE_SURNAMES);
 	
 	/**
 	 * Closed constructor <b>{@code Operations}</b>
@@ -77,6 +79,10 @@ public class Operations implements Constants {
 		return tokens;
 	}
 	
+	/**
+	 * Read input number from console
+	 * @return number 
+	 */
 	public static int inputNumber() {
 		int choice = 0;
 		while (true) {
@@ -96,6 +102,10 @@ public class Operations implements Constants {
 		return choice;
 	}
 	
+	/**
+	 * Read string from console
+	 * @return string
+	 */
 	public static String inputString() {
 		input = new Scanner(System.in, "utf-8");	
 		return input.next();
@@ -236,25 +246,32 @@ public class Operations implements Constants {
 		}
 	}
 
-	public static void createRandomSubscribers(File file, File file2, Map<Integer, MobileTariff> mapOfTariffs) {
-		Operations.createListsNamesAndSurnames(file, file2);
+	/**
+	 * Create random clients and subscribe them on various mobiletariff
+	 * @param mapOfTariffs - list of available tariffs
+	 */
+	public static void createRandomSubscribers(Map<Integer, MobileTariff> mapOfTariffs) {
+		Operations.createListsNamesAndSurnames();
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			Operations.subscribeForTariff(tariff);
 		}
 	}
-
-	private static void createListsNamesAndSurnames(File file, File file2) {
+	
+	/**
+	 * Create list of random clients from input files (names and surnames)
+	 */
+	private static void createListsNamesAndSurnames() {
 		List<String> tempNames = new ArrayList<>();
-		List<String> tempClients = new ArrayList<>();
+		List<String> tempSurnames = new ArrayList<>();
 		try {
-			Operations.readFile(tempNames, file);
-			Operations.readFile(tempClients, file2);
+			Operations.readFile(tempNames, filePathNames);
+			Operations.readFile(tempSurnames, filePathSurnames);
 		} catch (FileNotFoundException e) {
 			System.out
 					.println("При создании списка абонентов возникла ошибка. Подробное описание ошибки в файле log.txt");
 		}
 		Iterator<String> namesTokens = tempNames.iterator();
-		Iterator<String> surnameTokens = tempClients.iterator();
+		Iterator<String> surnameTokens = tempSurnames.iterator();
 		while (namesTokens.hasNext()) {
 			namesClients = Operations.stringParser(namesTokens.next());
 		}
@@ -263,12 +280,16 @@ public class Operations implements Constants {
 			}
 	}
 	
+	/**
+	 * subscribe random number of random clients on a mobile tariff
+	 * @param tariff - certain tariff on which we subscribe clients
+	 */
 	private static void subscribeForTariff(MobileTariff tariff) {
 		Random randomGenerator = new Random();
 		StringBuilder clientInformation;
 		String[] arrayNames = new String[namesClients.size()];
-		arrayNames = namesClients.toArray(arrayNames);
 		String[] arraySurnames = new String[surnamesClients.size()];
+		arrayNames = namesClients.toArray(arrayNames);
 		arraySurnames = surnamesClients.toArray(arraySurnames);
 		int randomNumberClients = randomGenerator.nextInt(50);
 		try {
@@ -288,6 +309,10 @@ public class Operations implements Constants {
 		}
 	}
 	
+	/**
+	 * create random date of subscribe 
+	 * @return string of date
+	 */
 	public static String getRandomDate() {
 		Random rand = new Random();
 		int year = rand.nextInt(YEAR_VALUE_FOR_RANDOM)
@@ -299,12 +324,20 @@ public class Operations implements Constants {
 		return format.format(calendar.getTime());
 	}
 	
+	/**
+	 * get current date for new real client 
+	 * @return string of date
+	 */
 	public static String getDate() {
 		Date date = Calendar.getInstance().getTime();
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    return sdf.format(date);
 	}
 
+	/**
+	 * print total number of clients
+	 * @param mapOfTariffs - list of available tariffs
+	 */
 	public static void getClientsNumber(Map<Integer, MobileTariff> mapOfTariffs){
 		int clientsNumber = 0; 
 		for (MobileTariff tariff : mapOfTariffs.values()) {
@@ -316,7 +349,6 @@ public class Operations implements Constants {
 	/**
 	 * Displays lists of tariffs sort by abonement price
 	 * @param mapOfTariffs 	- list of available tariffs
-	 * @param index - sorting index
 	 */
 	public static void sortServicesBasedOnAbonementPrice(Map<Integer, MobileTariff> mapOfTariffs){
 		List<MobileTariff> list = new ArrayList<>(mapOfTariffs.values());
@@ -345,6 +377,13 @@ public class Operations implements Constants {
 		}
 	}
 
+	/**
+	 * Find and display list of suitable tariff for different searching parameters
+	 * @param mapOfTariffs - list of available tariffs
+	 * @param parameter1 - first parameter for searching
+	 * @param parameter2 - second parameter for searching
+	 * @param typeOfSearch - type of searching
+	 */
 	public static void findSuitableTariff(
 			Map<Integer, MobileTariff> mapOfTariffs, double parameter1, double parameter2, int typeOfSearch) {
 		switch (typeOfSearch) {
@@ -363,7 +402,7 @@ public class Operations implements Constants {
 				if (value instanceof CallsTariff) {
 					if (((CallsTariff)value).getcallsPrice()<=parameter1 && 
 							((CallsTariff)value).getFreeMinutes()>=parameter2){
-						System.out.println("id="+key + " - " + value.toString().substring(27));
+						System.out.println("id="+key + " - " + value.toString().substring(INDEX_FOR_SUBSTRING_TARIFFNAME));
 					}
 				}
 			});
@@ -375,7 +414,7 @@ public class Operations implements Constants {
 				if (value instanceof InternetTariff) {
 					if (((InternetTariff)value).getInternetPrice()<=parameter1 && 
 							((InternetTariff)value).getFreeGb()>=parameter2){
-						System.out.println("id="+key + " - " + value.toString().substring(27));
+						System.out.println("id="+key + " - " + value.toString().substring(INDEX_FOR_SUBSTRING_TARIFFNAME));
 					}
 				}
 			});
@@ -387,16 +426,21 @@ public class Operations implements Constants {
 		}
 	}
 	
-	public static void serializeObjects (Map<Integer, MobileTariff> mapOfTariffs, File file){
+	/**
+	 * serialize tariffs and their state into the fileOuptut
+	 * @param mapOfTariffs - list of available tariffs
+	 * @param fileOutput - output file for storing serializable objects
+	 */
+	public static void serializeObjects (Map<Integer, MobileTariff> mapOfTariffs, File fileOutput){
 		ObjectOutputStream out = null;
 		try {
-			out = new ObjectOutputStream(new FileOutputStream(file));
+			out = new ObjectOutputStream(new FileOutputStream(fileOutput));
 			out.writeObject(mapOfTariffs);
-			System.out.println("Запись успешно произведена в файл \"" + file.getName() + "\"");
+			System.out.println("Запись успешно произведена в файл \"" + fileOutput.getName() + "\"");
 			System.out.println(mapOfTariffs.toString());
 		} 
 		catch (IOException e) {
-			System.out.println("Ошибка записи. Невозможно создать файл \"" + file.getName() + "\"");
+			System.out.println("Ошибка записи. Невозможно создать файл \"" + fileOutput.getName() + "\"");
 			Logger.log(e);
 		} finally {
 			try {
@@ -410,17 +454,22 @@ public class Operations implements Constants {
 		}
 	}
 	
+	/**
+	 * deserialize tariffs and their state from the fileOuptut
+	 * @param fileOutput - output file for storing serializable objects
+	 * @return deserializableObjects - hashmap deserializable tariffs objects
+	 */
 	@SuppressWarnings("unchecked")
-	public static Map<Integer, MobileTariff> deserializeObjects(File file){
-		Map<Integer, MobileTariff> fromFile = null;
+	public static Map<Integer, MobileTariff> deserializeObjects(File fileOutput){
+		Map<Integer, MobileTariff> deserializableObjects = null;
 		ObjectInputStream ois = null;
 		try {
-			ois = new ObjectInputStream(new FileInputStream(file));
-			fromFile = (Map<Integer, MobileTariff>) ois.readObject();
+			ois = new ObjectInputStream(new FileInputStream(fileOutput));
+			deserializableObjects = (Map<Integer, MobileTariff>) ois.readObject();
 			System.out.println("Объект успешно восстановлен.");
 		} 
 		catch (FileNotFoundException e) {
-			System.out.println("Файл не найден..." + file.getName());
+			System.out.println("Файл не найден..." + fileOutput.getName());
 			Logger.log(e);
 		} 
 		catch (IOException e) {
@@ -440,13 +489,24 @@ public class Operations implements Constants {
 				Logger.log(e);
 			}
 		}
-		return fromFile;
+		return deserializableObjects;
 	}
 
+	/**
+	 * subscribe new real client on a tariff
+	 * @param mobileTariff - certain tariff for client
+	 * @param passport - unique passport of client
+	 * @param clientInformation - another information of client (name, surname, date of subscribe)
+	 */
 	public static void subscribe(MobileTariff mobileTariff, String passport, StringBuilder clientInformation) {
 		mobileTariff.subscribe(passport, clientInformation);
 	}
 
+	/**
+	 * unsubscribe real client from a tariff
+	 * @param passport - unique passport of client
+	 * @param mapOfTariffs - list of available tariffs
+	 */
 	public static void unsubscribe(String passport, Map<Integer, MobileTariff> mapOfTariffs) {
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			if (tariff.getClients().containsKey(passport)) {
@@ -457,6 +517,10 @@ public class Operations implements Constants {
 		System.out.println(DELIMITER);
 	}
 	
+	/**
+	 * print all clients from all tariffs
+	 * @param mapOfTariffs - list of available tariffs
+	 */
 	public static void printAllClients(Map<Integer, MobileTariff> mapOfTariffs) {
 		for (MobileTariff tariff : mapOfTariffs.values()) {
 			System.out.println(tariff.getTariffName()+":");
@@ -465,8 +529,12 @@ public class Operations implements Constants {
 			}
 		}
 
+	/**
+	 * check input value of string passport
+	 * @return string with passport valid value
+	 */
 	public static String checkPassportValue() {
-		String passport;
+		String passport = null;
 		while (true) {
 			System.out
 					.println("Введите номер вашего паспорта в формате MPxxxxxxx :");
@@ -481,6 +549,12 @@ public class Operations implements Constants {
 		return passport;
 	}
 
+	/**
+	 * write tariffs on which certain client is subscribed to a file
+	 * @param filename - output filname to store information
+	 * @param passport - unique passport of client
+	 * @param mapOfTariffs - list of available tariffs
+	 */
 	public static void writeTariffsToFile(File filename, String passport, Map<Integer, MobileTariff> mapOfTariffs) {
 		PrintWriter pw = null;
 		try {

@@ -13,12 +13,11 @@ import by.pvt.heldyieu.mobile.beans.interfaces.Constants;
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;
 
 /**
- * @author HeroDishonest
+ * @author i.heldyieu
  *
  */
 public final class Initialization implements Constants {
 	private static File file;
-	private static File file2;
 	static Map<Integer, MobileTariff> mapOfTariffs = new HashMap<Integer, MobileTariff>();
 	
 	
@@ -30,19 +29,19 @@ public final class Initialization implements Constants {
 
 	public static void initializeObjects() {
 
-		// Create new entities for LimitedCallsTariff tariffs from input files
+		// Create new entities for LimitedCallsTariff tariffs from input file
 		file = new File(INPUT_FOLDER + LIMITED_CALLS_TARIFF);
 		Operations.createTariffs(file, LIMITED_CALLS_TARIFF);
 		
-		// Create new entities for LimitedInternetTariff tariffs from input files
+		// Create new entities for LimitedInternetTariff tariffs from input file
 		file = new File(INPUT_FOLDER + LIMITED_INERNET_TARIFF);
 		Operations.createTariffs(file, LIMITED_INERNET_TARIFF);
 		
-		// Create new entities for UnlimitedCallsTariff tariffs from input files
+		// Create new entities for UnlimitedCallsTariff tariffs from input file
 		file = new File(INPUT_FOLDER + UNLIMITED_CALLS_TARIFF);
 		Operations.createTariffs(file, UNLIMITED_CALLS_TARIFF);
 		
-		// Create new entities for UnlimitedInternetTariff tariffs from input files
+		// Create new entities for UnlimitedInternetTariff tariffs from input file
 		file = new File(INPUT_FOLDER + UNLIMITED_INERNET_TARIFF);
 		Operations.createTariffs(file, UNLIMITED_INERNET_TARIFF);
 		
@@ -50,9 +49,7 @@ public final class Initialization implements Constants {
 		mapOfTariffs = MobileTariff.getTariffs();
 		
 		//Create list of random subscribers for all tariffs based on input files
-		file = new File(INPUT_FOLDER + CLIENTS_FILE_NAMES);
-		file2 = new File(INPUT_FOLDER + CLIENTS_FILE_SURNAMES);
-		Operations.createRandomSubscribers(file, file2, mapOfTariffs);
+		Operations.createRandomSubscribers(mapOfTariffs);
 	}
 
 	public static void menu() {
@@ -141,7 +138,6 @@ public final class Initialization implements Constants {
 						break;
 						
 					case 4:
-						System.out.println("Введите номер вашего паспорта в формате MPxxxxxxx :");
 						passport = Operations.checkPassportValue();
 						if (passport!=null) {
 							Operations.unsubscribe(passport, mapOfTariffs);

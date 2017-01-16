@@ -6,8 +6,6 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * This class describes comparator, that uses in <b>MobileTariff</b> comparison
- * 
  * @author i.heldyieu 
  */
 public class MobileTariffComparator implements Comparator<MobileTariff>, Serializable{

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package by.pvt.heldyieu.mobile.beans.tariffs;
 
 import java.io.Serializable;
@@ -17,6 +14,7 @@ import by.pvt.heldyieu.mobile.interfaces.Unsubscribable;
  */
 public abstract class MobileTariff implements Constants, Subscribable, Unsubscribable, Comparable<MobileTariff>, Serializable {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4444143939196197302L;
 	private double abonementPrice;	 // abonement price
 	private String tariffName; 		// name of mobiletariff
@@ -34,7 +32,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	 * 
 	 * @param tariffname	- name of tariff
 	 * @param abonementPrice	- the price of tariff per month
-	 * @throws IllegalValueException	- throws exception if input value is incorrect
+	 * @throws InvalidValueException	- throws exception if input value is incorrect
 	 */
 	public MobileTariff(String tariffname, double abonementPrice) throws InvalidValueException {
 		this.tariffName = tariffname;
@@ -117,7 +115,7 @@ public abstract class MobileTariff implements Constants, Subscribable, Unsubscri
 	}
 	
 	/**
-	 * @return print the list of the clients
+	 * return print the list of the clients
 	 */
 	public void printClients() {
 		clients.forEach((passport, surname) -> System.out.println(passport + " " + surname));

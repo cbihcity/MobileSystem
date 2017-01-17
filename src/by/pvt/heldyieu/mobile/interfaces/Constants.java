@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package by.pvt.heldyieu.mobile.interfaces;
 
 public interface Constants {

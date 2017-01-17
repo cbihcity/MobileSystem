@@ -28,9 +28,10 @@ public abstract class Person implements Serializable {
 	}
 
 	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param birthday
+	 * @param firstName - name for manager
+	 * @param lastName - lastname for manager for manager
+	 * @param gender - gender of manager
+	 * @param birthday - date of birth for manager
 	 */
 	public Person(String firstName, String lastName, Gender gender, GregorianCalendar birthday) {
 		super();

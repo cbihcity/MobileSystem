@@ -26,7 +26,11 @@ public class Manager extends Person {
 	}
 
 	/**
-	 * @param category
+	 * @param firstName - name for manager
+	 * @param lastName - lastname for manager for manager
+	 * @param gender - gender of manager
+	 * @param birthday - date of birth for manager
+	 * @param category - category for manager
 	 */
 	public Manager(String firstName, String lastName, Gender gender, GregorianCalendar birthday, Category category) {
 		super(firstName, lastName, gender, birthday);

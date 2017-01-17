@@ -1,6 +1,3 @@
-/**
- * 
- */
 package by.pvt.heldyieu.mobile;
 
 import by.pvt.heldyieu.mobile.tools.Initialization;
@@ -13,9 +10,6 @@ import by.pvt.heldyieu.mobile.tools.Initialization;
  */
 public class MobileSystemRunner {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Initialization.initializeObjects();
 		Initialization.menu();

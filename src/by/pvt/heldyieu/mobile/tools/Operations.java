@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package by.pvt.heldyieu.mobile.tools;
 
 import java.io.*;
@@ -32,7 +35,7 @@ public class Operations implements Constants {
 	 * Reads list of tariffs from file
 	 * @param file - input file
 	 * @param list - list of tariffs for returning
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException  - @see FileNotFoundException
 	 */
 	public static void readFile(List<String> list, File file) throws FileNotFoundException {
 		BufferedReader br = null;

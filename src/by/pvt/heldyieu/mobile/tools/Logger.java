@@ -53,7 +53,6 @@ public final class Logger implements Constants {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			writer.write(sdf.format(Calendar.getInstance().getTime()));
 			writer.write(errors.toString()+"\n");
-			writer.close();
 		} catch (IOException e) {
 			Logger.log(e);
 		} finally {
@@ -78,7 +77,6 @@ public final class Logger implements Constants {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			writer.write(sdf.format(Calendar.getInstance().getTime()));
 			writer.write(message+"\n");
-			writer.close();
 		} catch (IOException e) {
 			Logger.log(e);
 		} finally {

@@ -89,7 +89,7 @@ public class LimitedInternetTariff extends InternetTariff {
 	}
 	
 	/**
-	 * @return print the list of the clients
+	 * return print the list of the clients
 	 */
 	public void printClients() {
 		super.printClients();

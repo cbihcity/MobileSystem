@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package by.pvt.heldyieu.mobile.tools;
 
 import by.pvt.heldyieu.mobile.beans.tariffs.MobileTariff;

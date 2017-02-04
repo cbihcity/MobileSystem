@@ -1,6 +1,3 @@
-/**
- * 
- */
 package by.pvt.heldyieu.mobile.exceptions;
 
 
